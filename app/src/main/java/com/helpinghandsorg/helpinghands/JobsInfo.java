@@ -1,10 +1,10 @@
 package com.helpinghandsorg.helpinghands;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,9 +12,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import jp.wasabeef.richeditor.RichEditor;
+
 public class JobsInfo extends AppCompatActivity {
     private String jobID;
     private TextView post,eligibility,agelimit,qualifiction,fees,lastdate,totalpost, process, benefits, salary, company;
+    private RichEditor editor;
     private JobDetails jobDetails;
 
 
@@ -30,10 +33,13 @@ public class JobsInfo extends AppCompatActivity {
         fees = findViewById(R.id.textViewFees);
         lastdate = findViewById(R.id.textViewLastDate);
         totalpost = findViewById(R.id.textViewTotalPost);
-        process = findViewById(R.id.textViewProcess);
+        //process = findViewById(R.id.textViewProcess);
         benefits = findViewById(R.id.textViewBenefits);
         salary = findViewById(R.id.textViewSalary);
         company = findViewById(R.id.textViewCompany);
+        editor = findViewById(R.id.textViewProcess);
+        editor.setEditorHeight(400);
+        //editor.setPadding(10,10,10,10);
 
         getJobData(new FirebaseCallback() {
             @Override
@@ -45,10 +51,12 @@ public class JobsInfo extends AppCompatActivity {
                 fees.setText(jobDetails.getFees());
                 lastdate.setText(jobDetails.getLastdate());
                 totalpost.setText(jobDetails.getTotalpost());
-                process.setText(jobDetails.getProcess());
+                //process.setText(jobDetails.getProcess());
                 benefits.setText(jobDetails.getBenefits());
                 salary.setText(jobDetails.getSalary());
                 company.setText(jobDetails.getCompany());
+                editor.setHtml(jobDetails.getProcess());
+                editor.setInputEnabled(false);
             }
         });
 

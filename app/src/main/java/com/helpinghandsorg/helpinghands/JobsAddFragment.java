@@ -2,30 +2,29 @@ package com.helpinghandsorg.helpinghands;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import jp.wasabeef.richeditor.RichEditor;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class JobsAddFragment extends Fragment {
-    private EditText post,eligibility,ageLimit,qualification,fees ,lastDate,totalPost, process, benefits, salary, company;
+    private EditText post,eligibility,ageLimit,qualification,fees ,lastDate,totalPost, benefits, salary, company;
+    private RichEditor editor;
     private Button submitButton;
     JobDetails jobDetails;
 
@@ -44,10 +43,26 @@ public class JobsAddFragment extends Fragment {
         lastDate = view.findViewById(R.id.editTextLastDate);
         totalPost = view.findViewById(R.id.editTextTotalpost);
         submitButton= view.findViewById(R.id.buttonSubmit);
-        process = view.findViewById(R.id.editTextProcess);
         benefits = view.findViewById(R.id.editTextBenefits);
         salary = view.findViewById(R.id.editTextSalary);
         company = view.findViewById(R.id.editTextCompany);
+
+        //Implementing Rich Text Editor
+        editor = view.findViewById(R.id.editTextProcess);
+        editor.setPlaceholder("Process to apply");
+        editor.setEditorHeight(200);
+        editor.setPadding(10,10,10,10);
+        view.findViewById(R.id.action_insert_bullets).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                editor.setBullets();
+            }
+        });
+
+        view.findViewById(R.id.action_insert_numbers).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                editor.setNumbers();
+            }
+        });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +89,7 @@ public class JobsAddFragment extends Fragment {
                 fees.getText().toString(),
                 lastDate.getText().toString(),
                 totalPost.getText().toString(),
-                process.getText().toString(),
+                editor.getHtml(),
                 benefits.getText().toString(),
                 salary.getText().toString(),
                 company.getText().toString()
