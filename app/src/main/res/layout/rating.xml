@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:drawable/screen_background_light_transparent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/fab_margin"
+                android:fontFamily="@font/bigshot_one"
+                android:text="Rate Intern's Work"
+                android:textSize="24sp" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Provide Feedback(Optional)"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/buttonSubmitRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded"
+                android:text="Submit Feedback"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+</RelativeLayout>

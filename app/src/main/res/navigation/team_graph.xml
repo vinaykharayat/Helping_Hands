@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/team_graph"
+    app:startDestination="@id/fragmentTeamCategory">
+
+    <fragment
+        android:id="@+id/fragmentTeamCategory"
+        android:name="com.helpinghandsorg.helpinghands.FragmentTeamCategory"
+        android:label="fragment_team_category"
+        tools:layout="@layout/fragment_team_category" >
+        <action
+            android:id="@+id/action_fragmentTeamCategory_to_allMembersList"
+            app:destination="@id/allMembersList" />
+        <action
+            android:id="@+id/action_fragmentTeamCategory_to_appTeam"
+            app:destination="@id/appTeam" />
+        <action
+            android:id="@+id/action_fragmentTeamCategory_to_surveyTeam"
+            app:destination="@id/surveyTeam" />
+        <action
+            android:id="@+id/action_fragmentTeamCategory_to_designingTeam"
+            app:destination="@id/designingTeam" />
+        <action
+            android:id="@+id/action_fragmentTeamCategory_to_projectTeam"
+            app:destination="@id/projectTeam" />
+        <action
+            android:id="@+id/action_fragmentTeamCategory_to_seoTeam"
+            app:destination="@id/seoTeam" />
+        <action
+            android:id="@+id/action_fragmentTeamCategory_to_webTeam"
+            app:destination="@id/webTeam" />
+    </fragment>
+    <fragment
+        android:id="@+id/allMembersList"
+        android:name="com.helpinghandsorg.helpinghands.teams.AllMembersList"
+        android:label="AllMembersList"
+        tools:layout="@layout/fragment_users_list">
+        <action
+            android:id="@+id/action_allMembersList_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_allMembersList_to_chatsFragment2"
+            app:destination="@id/chatsFragment2" />
+        <action
+            android:id="@+id/action_allMembersList_to_editUser"
+            app:destination="@id/editUser" />
+    </fragment>
+    <fragment
+        android:id="@+id/designingTeam"
+        android:name="com.helpinghandsorg.helpinghands.teams.DesigningTeam"
+        android:label="DesigningTeam"
+        />
+    <fragment
+        android:id="@+id/projectTeam"
+        android:name="com.helpinghandsorg.helpinghands.teams.ProjectTeam"
+        android:label="ProjectTeam" />
+    <fragment
+        android:id="@+id/appTeam"
+        android:name="com.helpinghandsorg.helpinghands.teams.AppTeam"
+        android:label="AppTeam" />
+    <fragment
+        android:id="@+id/seoTeam"
+        android:name="com.helpinghandsorg.helpinghands.teams.SeoTeam"
+        android:label="SeoTeam" />
+    <fragment
+        android:id="@+id/surveyTeam"
+        android:name="com.helpinghandsorg.helpinghands.teams.SurveyTeam"
+        android:label="SurveyTeam" />
+    <fragment
+        android:id="@+id/webTeam"
+        android:name="com.helpinghandsorg.helpinghands.teams.WebTeam"
+        android:label="WebTeam" />
+    <fragment
+        android:id="@+id/viewProfile"
+        android:name="com.helpinghandsorg.helpinghands.ui.profile.ViewProfile"
+        android:label="ViewProfile" >
+        <action
+            android:id="@+id/action_viewProfile_to_allMembersList"
+            app:destination="@id/allMembersList" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatsFragment2"
+        android:name="com.helpinghandsorg.helpinghands.ui.chats.ChatsFragment"
+        android:label="chats_fragment"
+        tools:layout="@layout/chats_fragment" >
+        <action
+            android:id="@+id/action_chatsFragment2_to_allMembersList"
+            app:destination="@id/allMembersList" />
+    </fragment>
+    <fragment
+        android:id="@+id/editUser"
+        android:name="com.helpinghandsorg.helpinghands.EditUser"
+        android:label="fragment_edit_user"
+        tools:layout="@layout/fragment_edit_user" >
+        <action
+            android:id="@+id/action_editUser_to_allMembersList"
+            app:destination="@id/allMembersList" />
+    </fragment>
+
+</navigation>

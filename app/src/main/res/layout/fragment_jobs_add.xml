@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JobsAddFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Post"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Company Name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextEligibilty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Eligibility"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextAgeLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Age Limit"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextQualification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Educational Qualification"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextSalary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Salary"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextBenefits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Benefits"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextFees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Fees"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextLastDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Last Date"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextTotalpost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Total Post"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextProcess"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:ems="10"
+                android:hint="Process to apply"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/buttonSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:background="@drawable/btn_rounded"
+                android:text="Submit"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

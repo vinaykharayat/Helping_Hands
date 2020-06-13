@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">Helping Hands</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="confirm_text">Are you sure?</string>
+    <string name="confirm_text_description">This will be permanantly deleted</string>
+    <string name="positive_text">Yes</string>
+    <string name="negative_text">Cancel</string>
+    <string name="title_activity_nav__drawer">Explore</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_contact">Contact Us</string>
+    <string name="menu_about">About Us</string>
+    <string name="menu_share">Share this app!</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="email">Email</string>
+    <string name="full_name">Full Name</string>
+    <string name="gender">Gender</string>
+    <string name="button_back">Back</string>
+    <string name="org_slogan">An App for young minds of world</string>
+    <string name="from_gallery">From Gallery</string>
+    <string name="remove_image">Remove Image</string>
+    <string-array name="profile_picture_options">
+        <item>From Gallery</item>
+        <item>Remove Image</item>
+    </string-array>
+
+    <string-array name="user_profile_select_option">
+        <item>View Profile</item>
+        <item>Send Message</item>
+        <item>Edit Profile</item>
+        <item>Remove Profile</item>
+    </string-array>
+    <string name="facebook_page_link">fb://page/1694445080614369</string>
+    <string name="facebook_page_link2">https://www.facebook.com/helpinghands4world</string>
+    <string name="instagram_page_link">http://instagram.com/_u/we_r_helping_hands</string>
+    <string name="instagram_page_link2">http://instagram.com/we_r_helping_hands</string>
+
+    <string-array name="designation_array">
+        <item>Member</item>
+        <item>AppTeam</item>
+        <item>DesigningTeam</item>
+        <item>ProjectTeam</item>
+        <item>SeoTeam</item>
+        <item>SurveyTeam</item>
+        <item>WebTeam</item>
+    </string-array>
+
+    <string-array name="add_submission_options">
+        <item>Add file</item>
+        <item>Blank Submission</item>
+    </string-array>
+
+    <string-array name="task_submitted_option">
+        <item>View work</item>
+        <item>Rate this</item>
+        <item>Confirm Task Finsihed</item>
+    </string-array>
+
+    <string-array name="interview_questions">
+        <item>Qs.1 What can you actually do for us apart from your respective area of field?</item>
+        <item>Qs.2 Tell me what you do that makes the biggest impact on the organisation in your current job?</item>
+        <item>Qs.3 Tell me about a time you feel a boss treated you unfairly?</item>
+        <item>Qs.4 Tell me something you are learning right now?</item>
+        <item>Qs.5 What obstacles are you still working through?</item>
+        <item>Qs.6 Why do you want to come work at a startup, as opposed to an established company?</item>
+        <item>Qs.7 If you were to open your own business in the future, what kind of business will you open and why?</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

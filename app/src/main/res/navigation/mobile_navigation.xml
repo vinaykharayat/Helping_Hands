@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@id/nav_home"
+        android:name="com.helpinghandsorg.helpinghands.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_profile"
+            app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_nav_home_to_fragmentTaskDetail2"
+            app:destination="@id/fragmentTaskDetail2" />
+    </fragment>
+
+    <fragment
+        android:id="@id/nav_contact"
+        android:name="com.helpinghandsorg.helpinghands.ui.contact.contact"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/contact_fragment"/>
+
+    <fragment
+        android:id="@id/nav_chats"
+        android:name="com.helpinghandsorg.helpinghands.chats_user_fragment"
+        android:label="Chats"
+        tools:layout="@layout/chats_fragment"/>
+
+    <fragment
+        android:id="@id/nav_about"
+        android:name="com.helpinghandsorg.helpinghands.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about"/>
+    <fragment
+        android:id="@id/nav_join_team"
+        android:name="com.helpinghandsorg.helpinghands.JoinTeam"
+        android:label="Join us"
+        tools:layout="@layout/fragment_join_team" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.helpinghandsorg.helpinghands.ui.profile.profile"
+        android:label="profile"
+        tools:layout="@layout/profile_fragment">
+        <action
+            android:id="@+id/action_profile_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentTaskDetail2"
+        android:name="com.helpinghandsorg.helpinghands.FragmentTaskDetail"
+        android:label="Task Details"
+        tools:layout="@layout/fragment_task_detail" >
+        <action
+            android:id="@+id/action_fragmentTaskDetail2_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+</navigation>

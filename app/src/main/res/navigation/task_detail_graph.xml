@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/task_detail_graph"
+    app:startDestination="@id/fragmentTaskDetail">
+
+    <fragment
+        android:id="@+id/fragmentTaskDetail"
+        android:name="com.helpinghandsorg.helpinghands.FragmentTaskDetail"
+        android:label="fragment_task_detail"
+        tools:layout="@layout/fragment_task_detail" >
+        <action
+            android:id="@+id/action_fragmentTaskDetail_to_submissionList"
+            app:destination="@id/submissionList" />
+    </fragment>
+    <fragment
+        android:id="@+id/submissionList"
+        android:name="com.helpinghandsorg.helpinghands.SubmissionList"
+        android:label="fragment_submission_list"
+        tools:layout="@layout/fragment_submission_list" >
+        <action
+            android:id="@+id/action_submissionList_to_fragmentTaskDetail"
+            app:destination="@id/fragmentTaskDetail" />
+        <action
+            android:id="@+id/action_submissionList_to_rating"
+            app:destination="@id/rating" />
+    </fragment>
+    <fragment
+        android:id="@+id/rating"
+        android:name="com.helpinghandsorg.helpinghands.rating"
+        android:label="rating"
+        tools:layout="@layout/rating">
+        <action
+            android:id="@+id/action_rating_to_submissionList"
+            app:destination="@id/submissionList" />
+    </fragment>
+</navigation>
