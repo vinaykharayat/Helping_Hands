@@ -27,7 +27,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 app:srcCompat="@drawable/ic_people_outline_black_24dp" />

@@ -93,4 +93,11 @@ public class Admin_chat_activity extends AppCompatActivity {
     private interface FirebaseCallBack {
         void Callback(String userName, String imageUrl);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(Admin_chat_activity.this, Main2Activity.class));
+        finishAffinity();
+    }
 }

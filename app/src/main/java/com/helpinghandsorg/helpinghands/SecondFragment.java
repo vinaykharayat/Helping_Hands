@@ -16,20 +16,27 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 
 public class SecondFragment extends Fragment {
@@ -44,6 +51,7 @@ public class SecondFragment extends Fragment {
     private Spinner spinner;
     private DatePickerDialog.OnDateSetListener mDateSetListner;
     private String designation;
+    private AlertDialog dialog;
 
 
     @Override
@@ -71,6 +79,23 @@ public class SecondFragment extends Fragment {
         Button buttonSelectDate = view.findViewById(R.id.buttonSelectDate);
         taskTitle = view.findViewById(R.id.TextInputTaskTitle);
         taskDescription = view.findViewById(R.id.TextInputTaskDescription);
+
+        if(!(getActivity().getIntent().getExtras().getString("taskID") == null)){
+            Button button = view.findViewById(R.id.buttonSubmitTask);
+            button.setVisibility(View.GONE);
+            editTask();
+            button = view.findViewById(R.id.buttonUpdateTask);
+            button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Please Wait").setView(R.layout.my_progress_view).setCancelable(false);
+                    dialog = builder.show();
+                    updateTask();
+                }
+            });
+        }
 
 
         buttonSelectDate.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +134,66 @@ public class SecondFragment extends Fragment {
         });
     }
 
+    private void editTask() {
+        String taskID = getActivity().getIntent().getExtras().getString("taskID");
+        getTaskData(taskID, new FirebaseCallBack() {
+            @Override
+            public void Callback(final TaskModel taskModel) {
+                taskTitle.setText(taskModel.getTaskTitle());
+                taskDescription.setText(taskModel.getTaskDescription());
+                TextViewDueDate.setText(taskModel.getDueDate());
+                for(int i= 0 ; i<spinner.getCount(); i++){
+                    if(spinner.getItemAtPosition(i)== taskModel.getDestination()){
+                        spinner.setSelection(i);
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void updateTask() {
+        final HashMap<String, Object> map = new HashMap<>();
+        map.put("dueDate", TextViewDueDate.getText().toString());
+        map.put("taskDescription", taskDescription.getText().toString());
+        map.put("destination", spinner.getSelectedItem().toString());
+        map.put("taskTitle", taskTitle.getText().toString());
+        dbRef.child(getActivity().getIntent().getExtras().getString("taskID")).updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                startActivity(new Intent(getContext(), Main2Activity.class));
+                getActivity().finishAffinity();
+                dialog.dismiss();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private interface FirebaseCallBack{
+        void Callback(TaskModel taskModel);
+    }
+
+    private void getTaskData(String taskID, final FirebaseCallBack firebaseCallBack) {
+        dbRef.child(taskID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                TaskModel taskModel = dataSnapshot.getValue(TaskModel.class);
+                Log.d("edittask", dataSnapshot.getValue().toString());
+                firebaseCallBack.Callback(taskModel);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void openDatePickerDialog() {
         //Sets current date to dialog
@@ -140,6 +225,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                     startActivity(new Intent(getContext(), Main2Activity.class));
+                    getActivity().finishAffinity();
             }
         });
 

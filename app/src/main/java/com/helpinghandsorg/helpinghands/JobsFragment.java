@@ -2,7 +2,6 @@ package com.helpinghandsorg.helpinghands;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,11 +58,6 @@ public class JobsFragment extends Fragment implements JobsAdaptor.OnTaskClickLis
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), AddJobs.class));
                 getActivity().finishAffinity();
-                /*FragmentManager fm = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                Fragment fragment = new JobsAddFragment();
-                ft.add(android.R.id.content,
-                        fragment, "Chatsfragment").commit();*/
             }
         });
 

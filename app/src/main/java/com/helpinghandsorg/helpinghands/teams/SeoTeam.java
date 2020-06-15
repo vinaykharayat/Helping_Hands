@@ -34,11 +34,13 @@ public class SeoTeam extends Fragment implements UsersListAdaptor.OnUserListClic
     private RecyclerView recyclerView;
     private UsersListAdaptor usersListAdaptor;
     private ArrayList<Volunteer> volunteerArrayList= new ArrayList<>();
+    private UsersListAdaptor.OnUserListClickListner onUserListClickListner;
     Volunteer volunteer=new Volunteer();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        onUserListClickListner = this;
         recyclerView = view.findViewById(R.id.recycler_view_user_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -56,7 +58,7 @@ public class SeoTeam extends Fragment implements UsersListAdaptor.OnUserListClic
                     volunteer = dataSnapshot1.getValue(Volunteer.class);
                     volunteerArrayList.add(volunteer);
                 }
-                usersListAdaptor = new UsersListAdaptor(getContext(), volunteerArrayList);
+                usersListAdaptor = new UsersListAdaptor(getContext(), volunteerArrayList, onUserListClickListner);
                 recyclerView.setAdapter(usersListAdaptor);
             }
 

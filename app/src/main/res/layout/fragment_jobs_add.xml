@@ -138,6 +138,16 @@
                 android:text="Submit"
                 android:textColor="#fff" />
 
+            <Button
+                android:id="@+id/buttonUpdateJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:background="@drawable/btn_rounded"
+                android:text="Update"
+                android:visibility="gone"
+                android:textColor="#fff" />
+
         </LinearLayout>
     </ScrollView>
 

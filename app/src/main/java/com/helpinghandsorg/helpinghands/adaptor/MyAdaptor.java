@@ -2,11 +2,12 @@ package com.helpinghandsorg.helpinghands.adaptor;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.SuccessContinuation;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.helpinghandsorg.helpinghands.AddTask;
 import com.helpinghandsorg.helpinghands.R;
 import com.helpinghandsorg.helpinghands.TaskModel;
 
@@ -30,7 +31,6 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.myViewHolder> {
     private ArrayList<TaskModel> taskLists;
     private String taskid;
     private OnTaskClickListner mTaskListner;
-    private int listSize;
 
     public MyAdaptor(Context c, ArrayList<TaskModel> t, OnTaskClickListner onTaskClickListner) {
         context = c;
@@ -52,7 +52,6 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.myViewHolder> {
         holder.title.setText(taskLists.get(position).getTaskTitle());
         holder.dueDate.setText(taskLists.get(position).getDueDate());
         holder.description.setText(taskLists.get(position).getTaskDescription());
-        Log.d("fix", String.valueOf(holder.getAdapterPosition()));
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,14 +62,41 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.myViewHolder> {
                         .setPositiveButton(R.string.positive_text, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                listSize-=1;
                                 taskLists.remove(holder.getAdapterPosition());
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 Toast.makeText(context, "Delete Successful", Toast.LENGTH_SHORT).show();
                                 FirebaseDatabase.getInstance()
                                         .getReference("tasks")
                                         .child(taskid)
-                                        .removeValue();
+                                        .removeValue(new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                                Toast.makeText(context, "Delete Successful", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        })
+                        .setNegativeButton(R.string.negative_text, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }).show();
+            }
+        });
+
+        holder.editTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskid = taskLists.get(holder.getAdapterPosition()).getTaskID();
+                new AlertDialog.Builder(context)
+                        .setTitle(R.string.confirm_text)
+                        .setMessage("Do you really want to edit this task?")
+                        .setPositiveButton(R.string.positive_text, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(context, AddTask.class).putExtra("taskID", taskid);
+                                context.startActivity(intent);
                             }
                         })
                         .setNegativeButton(R.string.negative_text, new DialogInterface.OnClickListener() {
@@ -86,13 +112,13 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.myViewHolder> {
 
     @Override
     public int getItemCount() {
-        listSize = taskLists.size();
-        return listSize;
+        return taskLists.size();
     }
 
     class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, dueDate, description;
         ImageButton deleteButton;
+        ImageView editTaskButton;
         OnTaskClickListner onTaskClickListner;
 
         public myViewHolder(@NonNull View itemView, OnTaskClickListner onTaskClickListner) {
@@ -101,25 +127,21 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.myViewHolder> {
             dueDate = itemView.findViewById(R.id.taskDueDate);
             description = itemView.findViewById(R.id.taskDescription);
             deleteButton = itemView.findViewById(R.id.taskDeleteButton);
+            editTaskButton = itemView.findViewById(R.id.imageViewEditButton);
             this.onTaskClickListner = onTaskClickListner;
 
             itemView.setOnClickListener(this);
 
         }
 
-        public ImageButton getDeleteButton() {
-            return deleteButton;
-        }
 
         @Override
         public void onClick(View v) {
-            //onTaskClickListner.onMessagelistClick();
             onTaskClickListner.onTaskClick(getAdapterPosition());
         }
     }
 
     public interface OnTaskClickListner {
         void onTaskClick(int position);
-        //void onMessagelistClick(int uid);
     }
 }
