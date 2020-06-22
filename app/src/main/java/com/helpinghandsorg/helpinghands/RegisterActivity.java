@@ -3,12 +3,14 @@ package com.helpinghandsorg.helpinghands;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,19 +45,22 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 
 public class RegisterActivity extends AppCompatActivity {
     private Volunteer newVolunteer;
     private FirebaseAuth mAuth;
     private DatabaseReference dbRef, volunteerRef;
-    private EditText editEmail, editPassword, editTextConfirmPassword, editTextName;
+    private TextInputLayout editEmail, editPassword, editTextConfirmPassword, editTextName;
     private RadioButton radioButtonMale, radioButtonFemale;
-    private String fullName, email, profilepicUrl, gender;
+    private String fullName, email, profilepicUrl, gender, password, joiningDate;
     private ProgressBar mProgressBar;
     private static final int PICK_IMAGE_REQUEST = 1;
     private CircleImageView mProfilePicture;
     private Task urlTask;
     private AlertDialog dialog;
+    private BlurView blurView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,54 +71,21 @@ public class RegisterActivity extends AppCompatActivity {
         dbRef = firebaseDatabase.getReference();
         Button loginButton = findViewById(R.id.buttonLogin);
         Button registerButton = findViewById(R.id.buttonSubmitIssue);
-        editTextName = findViewById(R.id.editTextName);
-        editEmail = findViewById(R.id.editTextEmail);
-        editPassword = findViewById(R.id.editTextPassword);
-        editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
+        editTextName = findViewById(R.id.username);
+        editEmail = findViewById(R.id.email);
+        editPassword = findViewById(R.id.password);
+        editTextConfirmPassword = findViewById(R.id.passwordConfirm);
         radioButtonMale = findViewById(R.id.radioButtonMale);
         radioButtonFemale = findViewById(R.id.radioButtonFemale);
         mProgressBar = findViewById(R.id.progressBarRegister);
-        mProfilePicture = findViewById(R.id.selectProfilePic);
         profilepicUrl = "null";
         //fetching radio button data
         radioButtonMale.setChecked(true);
         gender = "Male";
         final String[] chooseImageOptionList = getResources().getStringArray(R.array.profile_picture_options);
 
-        mProfilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(RegisterActivity.this)
-                        .setTitle("Select Your Choice")
-                        .setItems(chooseImageOptionList, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        if (!editEmail.getText().toString().isEmpty() && isUserNameValid(editEmail.getText().toString())) {
-                                            openFileChooser();
-                                            break;
-                                        } else {
-                                            new AlertDialog.Builder(RegisterActivity.this).setTitle("Error")
-                                                    .setMessage("Please enter a valid email first!")
-                                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            dialog.dismiss();
-                                                        }
-                                                    }).show();
-                                            editEmail.setError("Enter a valid email address");
-                                            editEmail.requestFocus();
-                                            break;
-                                        }
-                                    case 1:
-                                        removeProfilePicture();
-                                        break;
-                                }
-                            }
-                        }).show();
-            }
-        });
+        blurView = findViewById(R.id.blurView);
+        blurBackground();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,18 +115,36 @@ public class RegisterActivity extends AppCompatActivity {
         finishAffinity();
     }
 
+    private void blurBackground() {
+        float radius = 25f;
+
+        View decorView = getWindow().getDecorView();
+        //ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+        ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+        //Set drawable to draw in the beginning of each blurred frame (Optional).
+        //Can be used in case your layout has a lot of transparent space and your content
+        //gets kinda lost after after blur is applied.
+        Drawable windowBackground = decorView.getBackground();
+
+        blurView.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new RenderScriptBlur(this))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
+    }
+
     private void createUser() {
         //getting registration form data
         volunteerRef = dbRef.child("Volunteer").child("Member");
-        String password = editPassword.getText().toString().trim();
-        String confirmPassword = editTextConfirmPassword.getText().toString().trim();
-        fullName = editTextName.getText().toString().trim();
-        email = editEmail.getText().toString();
+        password = editPassword.getEditText().getText().toString().trim();
+        String confirmPassword = editTextConfirmPassword.getEditText().getText().toString().trim();
+        fullName = editTextName.getEditText().getText().toString().trim();
+        email = editEmail.getEditText().getText().toString();
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        final String joiningDate = day + "/" + month + "/" + year;
+        joiningDate = day + "/" + month + "/" + year;
 
         if (radioButtonFemale.isChecked()) {
             gender = "Female";
@@ -199,105 +190,7 @@ public class RegisterActivity extends AppCompatActivity {
             Log.d("emailerror", String.valueOf(isUserNameValid(email)));
             mAuth = FirebaseAuth.getInstance();
             Log.d("signup", "creating account");
-            final String finalGender = gender;
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        new AlertDialog.Builder(RegisterActivity.this)
-                                                .setMessage("A verification email has been sent to " + editEmail.getText().toString())
-                                                .setTitle("Verify")
-                                                .setIcon(android.R.drawable.ic_dialog_info)
-                                                .setPositiveButton("Open Email", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        RegisterActivity.this.dialog.dismiss();
-                                                        Intent gmailIntent = new Intent(Intent.ACTION_MAIN);
-                                                        gmailIntent.addCategory(Intent.CATEGORY_APP_EMAIL);
-                                                        if (gmailIntent == null) {
-                                                            Toast.makeText(RegisterActivity.this, "Gmail App is not installed", Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            startActivity(gmailIntent);
-                                                        }
-                                                    }
-                                                })
-                                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        dialog.dismiss();
-                                                        startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
-                                                        finishAffinity();
-                                                    }
-                                                }).show();
-                                    }
-                                });
-                                //volunteer data
-                                newVolunteer = new Volunteer(
-                                        fullName,
-                                        email,
-                                        finalGender,
-                                        "false",
-                                        joiningDate,
-                                        profilepicUrl,
-                                        "Member",
-                                        FirebaseAuth.getInstance().getUid(),
-                                        new Long((long) 0.5),
-                                        new Long(0),
-                                        new Long(0));
-                                volunteerRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(newVolunteer).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull final Task<Void> task) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d("signup", "createUserWithEmail:success");
-                                        final FirebaseUser user = mAuth.getCurrentUser();
-                                        if (profilepicUrl.equals("null")) {
-                                            new AlertDialog.Builder(RegisterActivity.this)
-                                                    .setTitle("Oops!")
-                                                    .setMessage("Looks like you didn't choose any profile picture, " +
-                                                            "you can also set it later from your profile. ")
-                                                    .setPositiveButton("I'll do it later", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            updateUI(user, task);
-                                                        }
-                                                    })
-                                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            dialog.dismiss();
-                                                        }
-                                                    }).show();
-                                        }
-                                    }
-                                });
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("signup", "createUserWithEmail:failure", task.getException());
-                                dialog.dismiss();
-                            }
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    new AlertDialog.Builder(RegisterActivity.this).setMessage(e.getMessage())
-                            .setTitle("Oops")
-                            .setIcon(android.R.drawable.ic_dialog_info)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    editEmail.requestFocus();
-                                }
-                            }).show();
-
-                    dialog.dismiss();
-                }
-            });
+            createUserOnFirebase();
         } else if (!isUserNameValid(email)) {
             editEmail.setError("Invalid Email");
             editEmail.requestFocus();
@@ -309,6 +202,89 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             Log.d("signup", "unknown error");
         }
+    }
+
+    private void createUserOnFirebase() {
+        final String finalGender = gender;
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull final Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    new AlertDialog.Builder(RegisterActivity.this)
+                                            .setMessage("A verification email has been sent to " + editEmail.getEditText().getText().toString())
+                                            .setTitle("Verify")
+                                            .setIcon(android.R.drawable.ic_dialog_info)
+                                            .setPositiveButton("Open Email", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    RegisterActivity.this.dialog.dismiss();
+                                                    Intent gmailIntent = new Intent(Intent.ACTION_MAIN);
+                                                    gmailIntent.addCategory(Intent.CATEGORY_APP_EMAIL);
+                                                    if (gmailIntent == null) {
+                                                        Toast.makeText(RegisterActivity.this, "Gmail App is not installed", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        startActivity(gmailIntent);
+                                                    }
+                                                }
+                                            })
+                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                    startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
+                                                    finishAffinity();
+                                                }
+                                            }).show();
+                                }
+                            });
+                            //volunteer data
+                            newVolunteer = new Volunteer(
+                                    fullName,
+                                    email,
+                                    finalGender,
+                                    "false",
+                                    joiningDate,
+                                    profilepicUrl,
+                                    "Member",
+                                    FirebaseAuth.getInstance().getUid(),
+                                    new Long((long) 0.5),
+                                    new Long(0),
+                                    new Long(0));
+                            volunteerRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(newVolunteer).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull final Task<Void> task) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d("signup", "createUserWithEmail:success");
+                                }
+                            });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("signup", "createUserWithEmail:failure", task.getException());
+                            dialog.dismiss();
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                new AlertDialog.Builder(RegisterActivity.this).setMessage(e.getMessage())
+                        .setTitle("Oops")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                editEmail.requestFocus();
+                            }
+                        }).show();
+
+                dialog.dismiss();
+            }
+        });
     }
 
     private void updateUI(FirebaseUser user, Task task) {
@@ -384,7 +360,7 @@ public class RegisterActivity extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             //Sets the path in storage to "Volunteer/EmailofUser/profile_picture"
             StorageReference mStorageRef = FirebaseStorage.getInstance().getReference("Volunteer")
-                    .child(editEmail.getText().toString())
+                    .child(editEmail.getEditText().getText().toString())
                     .child("profile_picture");
 
             //picked image from storage and put it into mImageUri
@@ -437,10 +413,10 @@ public class RegisterActivity extends AppCompatActivity {
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("profilePicUrl")
                 .setValue("null");
-        if (!editEmail.getText().toString().isEmpty() && isUserNameValid(editEmail.getText().toString())) {
+        if (!editEmail.getEditText().getText().toString().isEmpty() && isUserNameValid(editEmail.getEditText().getText().toString())) {
             FirebaseStorage.getInstance().getReference()
                     .child("Volunteer")
-                    .child(editEmail.getText().toString())
+                    .child(editEmail.getEditText().getText().toString())
                     .child("profile_picture")
                     .delete();
         }

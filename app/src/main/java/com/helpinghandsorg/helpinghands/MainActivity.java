@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     String userEmail = "Useremail@email.com";
     private  int destinationId;
     private DrawerLayout drawer;
+    private Menu menuOptions;
 
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -130,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     private void readData(final FirebaseCallBack firebaseCallBack) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference volunteerRef = dbRef.child("Volunteer").child("Member").child(currentUser.getUid());
@@ -171,6 +174,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav__drawer, menu);
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                return true;
+            }
+        });
         return true;
     }
 

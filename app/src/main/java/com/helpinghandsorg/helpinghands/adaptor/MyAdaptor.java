@@ -49,7 +49,7 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.myViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final myViewHolder holder, final int position) {
-        holder.title.setText(taskLists.get(position).getTaskTitle());
+        holder.title.setText(taskLists.get(position).getTaskTitle().toUpperCase());
         holder.dueDate.setText(taskLists.get(position).getDueDate());
         holder.description.setText(taskLists.get(position).getTaskDescription());
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {

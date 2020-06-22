@@ -81,7 +81,7 @@ public class JobsInfo extends AppCompatActivity {
                 //process.setText(jobDetails.getProcess());
                 benefits.setText(jobDetails.getBenefits());
                 salary.setText(jobDetails.getSalary());
-                company.setText(jobDetails.getCompany());
+                company.setText(jobDetails.getCompany().toUpperCase());
                 editor.setHtml(jobDetails.getProcess());
                 editor.setInputEnabled(false);
                 saveToDevice.setVisibility(View.VISIBLE);
@@ -168,8 +168,9 @@ public class JobsInfo extends AppCompatActivity {
                 /*File path = new File(getFilesDir(), "Helping Hands Jobs");
                 path.mkdir();
                 File f = new File(path + File.separator + jobDetails.getPost() + "helping_hands.pdf");*/
-                Log.d("Savefile", Environment.getExternalStorageState());
-                File f = new File(Environment.getExternalStorageDirectory() + "/"+"HelpingHands");
+                //File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/"+"HelpingHands");
+                File f = new File(this.getExternalFilesDir(null) + "/"+"Jobs");
+
                 Log.d("Savefile", String.valueOf(f));
 
                 if(!f.exists()){
@@ -177,7 +178,7 @@ public class JobsInfo extends AppCompatActivity {
                     Log.d("Savefile", String.valueOf(test));
                 }
                 File outputfile = new File(f , jobDetails.getPost() + ".pdf");
-                Log.d("Savefile", outputfile.toString());
+                Toast.makeText(this, "Saved to Android/data/com.helpinghands/files/jobs successfully", Toast.LENGTH_LONG).show();
 
 
                 pd.writeTo(new FileOutputStream(outputfile));

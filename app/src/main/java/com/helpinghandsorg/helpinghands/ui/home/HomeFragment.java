@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.helpinghandsorg.helpinghands.JobDetails;
+import com.helpinghandsorg.helpinghands.JobsInfo;
 import com.helpinghandsorg.helpinghands.LoginActivity;
 import com.helpinghandsorg.helpinghands.TaskDetails;
 import com.helpinghandsorg.helpinghands.Volunteer;
@@ -39,9 +40,10 @@ import com.helpinghandsorg.helpinghands.TaskModel;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickListner {
+public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickListner, JobsAdaptorUser.OnTaskClickListner {
 
     private HomeViewModel homeViewModel;
+    private boolean stateIntern;
     private RecyclerView recyclerView;
     private ArrayList<TaskModel> list;
     private ArrayList<JobDetails> list1;
@@ -68,6 +70,7 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         onTaskClickListner= this;
+        onTaskClickListner1 = this;
 
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
@@ -114,7 +117,7 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Please Wait").setView(R.layout.my_progress_view).setCancelable(false);
         dialog = builder.show();
-
+        stateIntern = false;
         DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference().child("jobs");
         recyclerView = getView().findViewById(R.id.recyclerViewTaskListsUser);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -153,7 +156,7 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Please Wait").setView(R.layout.my_progress_view).setCancelable(false);
         dialog = builder.show();
-
+        stateIntern = true;
         DatabaseReference taskRef = FirebaseDatabase.getInstance().getReference().child("tasks");
         recyclerView = getView().findViewById(R.id.recyclerViewTaskListsUser);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -215,16 +218,31 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
     @Override
     public void onTaskClick(int position) {
         Bundle bundle = new Bundle();
-        Log.d("Crashfix", list.get(position).toString());
-        bundle.putString("taskID", list.get(position).getTaskID());
-        try {
-            String taskID = list.get(position).getTaskID();
-            Intent intent = new Intent(getContext(), TaskDetails.class).putExtra("taskID", taskID);
-            startActivity(intent);
-        }catch (IndexOutOfBoundsException e){
-            String taskID = list.get(position+1).getTaskID();
-            Intent intent = new Intent(getContext(), TaskDetails.class).putExtra("taskID", taskID);
-            startActivity(intent);
+        if(stateIntern){
+            Log.d("Crashfix", list.get(position).toString());
+            bundle.putString("taskID", list.get(position).getTaskID());
+            try {
+                String taskID = list.get(position).getTaskID();
+                Intent intent = new Intent(getContext(), TaskDetails.class).putExtra("taskID", taskID);
+                startActivity(intent);
+            } catch (IndexOutOfBoundsException e) {
+                String taskID = list.get(position + 1).getTaskID();
+                Intent intent = new Intent(getContext(), TaskDetails.class).putExtra("taskID", taskID);
+                startActivity(intent);
+            }
+        }
+        else{
+            Log.d("Crashfix", list1.get(position).toString());
+            bundle.putString("taskID", list1.get(position).getJobId());
+            try {
+                String taskID = list1.get(position).getJobId();
+                Intent intent = new Intent(getContext(), JobsInfo.class).putExtra("jobID", taskID);
+                startActivity(intent);
+            } catch (IndexOutOfBoundsException e1) {
+                String taskID = list1.get(position + 1).getJobId();
+                Intent intent = new Intent(getContext(), JobsInfo.class).putExtra("jobID", taskID);
+                startActivity(intent);
+            }
         }
     }
 }

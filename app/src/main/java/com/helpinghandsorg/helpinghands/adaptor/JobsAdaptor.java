@@ -41,14 +41,17 @@ public class JobsAdaptor extends RecyclerView.Adapter<JobsAdaptor.myViewHolder> 
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new myViewHolder(LayoutInflater.from(context).inflate(R.layout.task_preview, parent, false), mTaskListner);
+        return new myViewHolder(LayoutInflater.from(context).inflate(R.layout.job_preview, parent, false), mTaskListner);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final myViewHolder holder, final int position) {
-        holder.title.setText(jobLists.get(position).getPost());
+        holder.title.setText(jobLists.get(position).getPost().toUpperCase());
         holder.dueDate.setText(jobLists.get(position).getLastdate());
-        holder.description.setText(jobLists.get(position).getEligibility());
+        //holder.description.setText(jobLists.get(position).getEligibility());
+        holder.salary.setText(jobLists.get(position).getSalary());
+        holder.companyName.setText(jobLists.get(position).getCompany().toUpperCase());
+        holder.totalPost.setText(jobLists.get(position).getTotalpost());
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +113,7 @@ public class JobsAdaptor extends RecyclerView.Adapter<JobsAdaptor.myViewHolder> 
     }
 
     class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView title, dueDate, description;
+        TextView title, dueDate, description, salary, totalPost, companyName;
         ImageButton deleteButton;
         ImageView editButton;
         OnTaskClickListner onTaskClickListner;
@@ -122,6 +125,9 @@ public class JobsAdaptor extends RecyclerView.Adapter<JobsAdaptor.myViewHolder> 
             description = itemView.findViewById(R.id.taskDescription);
             deleteButton = itemView.findViewById(R.id.taskDeleteButton);
             editButton = itemView.findViewById(R.id.imageViewEditButton);
+            salary = itemView.findViewById(R.id.textViewSalary);
+            totalPost = itemView.findViewById(R.id.textViewTotalPost);
+            companyName = itemView.findViewById(R.id.companyName);
             this.onTaskClickListner = onTaskClickListner;
 
             itemView.setOnClickListener(this);

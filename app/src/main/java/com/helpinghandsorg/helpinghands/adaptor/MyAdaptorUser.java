@@ -49,7 +49,7 @@ public class MyAdaptorUser extends RecyclerView.Adapter<MyAdaptorUser.myViewHold
     @Override
     public void onBindViewHolder(@NonNull MyAdaptorUser.myViewHolder holder, final int position) {
         //Set title and description to task preview textviews
-        holder.title.setText(taskLists.get(position).getTaskTitle());
+        holder.title.setText(taskLists.get(position).getTaskTitle().toUpperCase());
         holder.dueDate.setText(taskLists.get(position).getDueDate());
         holder.description.setText(taskLists.get(position).getTaskDescription());
         //Sets the path of database to taskAwatingConfirmation/task_title/UserEmail

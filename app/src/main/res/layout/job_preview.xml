@@ -20,6 +20,17 @@
             android:layout_margin="@dimen/fab_margin"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/companyName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:fontFamily="@font/bigshot_one"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Company"
+                android:textColor="#01579B"
+                android:textSize="24sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,9 +39,9 @@
 
                 <TextView
                     android:id="@+id/taskTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".95"
+                    android:layout_weight=".5"
                     android:fontFamily="@font/bigshot_one"
                     android:text="Title"
                     android:textColor="#880E4F"
@@ -40,34 +51,70 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/taskDueDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fab_margin"
-                    android:layout_marginRight="@dimen/fab_margin"
+                    android:layout_marginRight="8dp"
                     android:fontFamily="@font/bigshot_one"
-                    android:text="Due date:"
+                    android:text="Last date:"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/taskDueDate"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fab_margin"
                     android:text="due date"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/jobSalary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:fontFamily="@font/bigshot_one"
+                    android:text="Salary:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewSalary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:layout_marginLeft="8dp"
+                    android:text="salary"
+                    android:textSize="16sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/taskDescription"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:text="description"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/totalPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:fontFamily="@font/bigshot_one"
+                    android:text="Total Post: "
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewTotalPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:text="Total Post"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayoutTaskBar"
