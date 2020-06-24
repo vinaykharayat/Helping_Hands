@@ -20,6 +20,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
             android:layout_alignParentBottom="true"
             android:background="#ffffff"
             android:id="@+id/type_message_box"
@@ -31,6 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/button_send"
+                android:textColor="@color/background_theme_org"
+                android:textColorHint="@color/background_theme_org"
                 android:background="@android:drawable/screen_background_light_transparent"
                 android:hint="Type a message" />
 

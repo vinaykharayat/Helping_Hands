@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,14 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavAction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -37,8 +30,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.helpinghandsorg.helpinghands.ui.profile.profile;
 import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -84,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     View headerView = navigationView.getHeaderView(0);
                     TextView navUserName = headerView.findViewById(R.id.textViewNav_username);
                     TextView navUserEmail = headerView.findViewById(R.id.textViewNav_useremail);
-                    ImageView mNavAvatar = headerView.findViewById(R.id.imageViewProfilePicture);
+                    CircleImageView mNavAvatar = headerView.findViewById(R.id.imageViewProfilePicture);
                     if (!imageUrl.equals("null")) {
                         Picasso.get().load(imageUrl)
                                 .fit()

@@ -1,5 +1,6 @@
 package com.helpinghandsorg.helpinghands;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +39,11 @@ public class JoinTeam extends Fragment {
 
     private EditText[] ans = new EditText[7];
     private String[] interviewAnswers = new String[7];
-    Button submitAnswers;
+    private Button submitAnswers, editAnswers;
+    private RelativeLayout relativeLayout;
+    private BlurView blurView;
+    private ScrollView scrollView;
+    View view;
 
     public JoinTeam() {
         // Required empty public constructor
@@ -105,13 +115,24 @@ public class JoinTeam extends Fragment {
         ans[6] = view.findViewById(R.id.editTextAns7);
         //interviewAnswers[6]=ans[6].getText().toString().trim();
         submitAnswers = view.findViewById(R.id.buttonSubmit);
-
+        editAnswers = view.findViewById(R.id.editAnswers);
+        blurView = view.findViewById(R.id.blurView);
+        relativeLayout = view.findViewById(R.id.relativeLayout);
+        scrollView = view.findViewById(R.id.scrollview);
         submitAnswers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkAnswers()) {
                     submitAnswersToFirebase(interviewAnswers);
                 }
+            }
+        });
+
+        editAnswers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blurView.setBlurEnabled(false);
+                relativeLayout.setVisibility(View.GONE);
             }
         });
 
@@ -129,6 +150,25 @@ public class JoinTeam extends Fragment {
         return true;
     }
 
+    private void blurBackground() {
+        float radius = 22f;
+
+        View decorView = getActivity().getWindow().getDecorView();
+
+        //ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+        ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+        //Set drawable to draw in the beginning of each blurred frame (Optional).
+        //Can be used in case your layout has a lot of transparent space and your content
+        //gets kinda lost after after blur is applied.
+        Drawable windowBackground = decorView.getBackground();
+
+        blurView.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new RenderScriptBlur(getContext()))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
+    }
+
     private void submitAnswersToFirebase(String[] interviewAnswers) {
         HashMap<String, Object> hashMap = new HashMap<>();
         DatabaseReference AnsRef = FirebaseDatabase.getInstance().getReference("interViewAnswers")
@@ -140,6 +180,8 @@ public class JoinTeam extends Fragment {
             @Override
             public void onSuccess(Void aVoid) {
                 Snackbar.make(getView(), "Answers Submitted Successfully", BaseTransientBottomBar.LENGTH_LONG).show();
+                relativeLayout.setVisibility(View.VISIBLE);
+                blurBackground();
             }
         });
     }

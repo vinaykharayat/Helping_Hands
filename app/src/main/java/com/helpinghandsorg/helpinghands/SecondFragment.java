@@ -80,21 +80,25 @@ public class SecondFragment extends Fragment {
         taskTitle = view.findViewById(R.id.TextInputTaskTitle);
         taskDescription = view.findViewById(R.id.TextInputTaskDescription);
 
-        if(!(getActivity().getIntent().getExtras().getString("taskID") == null)){
-            Button button = view.findViewById(R.id.buttonSubmitTask);
-            button.setVisibility(View.GONE);
-            editTask();
-            button = view.findViewById(R.id.buttonUpdateTask);
-            button.setVisibility(View.VISIBLE);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Please Wait").setView(R.layout.my_progress_view).setCancelable(false);
-                    dialog = builder.show();
-                    updateTask();
-                }
-            });
+        try {
+            if (!(getActivity().getIntent().getExtras().getString("taskID") == null)) {
+                Button button = view.findViewById(R.id.buttonSubmitTask);
+                button.setVisibility(View.GONE);
+                editTask();
+                button = view.findViewById(R.id.buttonUpdateTask);
+                button.setVisibility(View.VISIBLE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Please Wait").setView(R.layout.my_progress_view).setCancelable(false);
+                        dialog = builder.show();
+                        updateTask();
+                    }
+                });
+            }
+        }catch (NullPointerException ignored){
+
         }
 
 
@@ -142,8 +146,8 @@ public class SecondFragment extends Fragment {
                 taskTitle.setText(taskModel.getTaskTitle());
                 taskDescription.setText(taskModel.getTaskDescription());
                 TextViewDueDate.setText(taskModel.getDueDate());
-                for(int i= 0 ; i<spinner.getCount(); i++){
-                    if(spinner.getItemAtPosition(i)== taskModel.getDestination()){
+                for (int i = 0; i < spinner.getCount(); i++) {
+                    if (spinner.getItemAtPosition(i) == taskModel.getDestination()) {
                         spinner.setSelection(i);
                     }
                 }
@@ -174,7 +178,7 @@ public class SecondFragment extends Fragment {
         });
     }
 
-    private interface FirebaseCallBack{
+    private interface FirebaseCallBack {
         void Callback(TaskModel taskModel);
     }
 
@@ -224,8 +228,8 @@ public class SecondFragment extends Fragment {
         dbRef.push().setValue(newModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                    startActivity(new Intent(getContext(), Main2Activity.class));
-                    getActivity().finishAffinity();
+                startActivity(new Intent(getContext(), Main2Activity.class));
+                getActivity().finishAffinity();
             }
         });
 

@@ -45,7 +45,11 @@ public class JobsAddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        jobID = getActivity().getIntent().getExtras().getString("jobID");
+        try {
+            jobID = getActivity().getIntent().getExtras().getString("jobID");
+        }catch (NullPointerException ignored){
+
+        }
         jobRef = FirebaseDatabase.getInstance().getReference("jobs");
         post = view.findViewById(R.id.editTextPost);
         eligibility = view.findViewById(R.id.editTextEligibilty);

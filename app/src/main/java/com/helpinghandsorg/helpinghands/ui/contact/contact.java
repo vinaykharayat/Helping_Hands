@@ -1,22 +1,19 @@
 package com.helpinghandsorg.helpinghands.ui.contact;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.helpinghandsorg.helpinghands.R;
 
@@ -123,7 +120,7 @@ public class contact extends Fragment {
     }
 
     public static Intent openWebsite(Context context){
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/helpinghands4world"));
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://werrhelpinghands.githib.io"));
     }
 
     public static Intent openInstagram(Context context){
