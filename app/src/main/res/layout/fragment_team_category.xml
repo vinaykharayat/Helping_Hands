@@ -16,14 +16,14 @@
             android:id="@+id/button_show_all_members"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show All Members"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
             android:background="@drawable/btn_rounded"
+            android:text="Show All Members"
             android:textColor="#ffffff"
-            android:layout_margin="@dimen/fab_margin"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <GridLayout
             android:id="@+id/gridLayout"

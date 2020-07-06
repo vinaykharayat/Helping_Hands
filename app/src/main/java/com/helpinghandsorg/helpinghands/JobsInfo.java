@@ -49,6 +49,8 @@ public class JobsInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_info);
+        overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+        setTitle("Description");
         jobID = getIntent().getExtras().getString("jobID");
         post = findViewById(R.id.textViewPostName);
         scrollView = findViewById(R.id.scrollview);

@@ -112,6 +112,12 @@ public class JobsFragment extends Fragment implements JobsAdaptor.OnTaskClickLis
     public void onTaskClick(int position) {
         String jobID = list.get(position).getJobId();
         Intent intent = new Intent(getContext(), JobsInfo.class).putExtra("jobID", jobID);
+
+/*************************************************************************
+ * added this line to stop multiple instance from opening when clicked
+ *
+ ************************************************************************/
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

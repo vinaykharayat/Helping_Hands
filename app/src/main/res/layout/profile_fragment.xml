@@ -75,6 +75,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:textSize="18dp"
+                android:textStyle="bold"
                 android:text="@string/email" />
 
             <TextView
@@ -97,6 +99,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:textSize="18dp"
+                android:textStyle="bold"
                 android:text="@string/gender" />
 
             <TextView
@@ -119,6 +123,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:textSize="18dp"
+                android:textStyle="bold"
                 android:text="Joining Date" />
 
             <TextView
@@ -141,13 +147,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:text="Total Tasks Alloted" />
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="Total Tasks (Alloted)" />
 
             <TextView
                 android:id="@+id/textViewProfileTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+
                 android:text="TextView" />
         </LinearLayout>
 
@@ -163,7 +172,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:text="Total Tasks Finished" />
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="Total Tasks (Finished)" />
 
             <TextView
                 android:id="@+id/textViewProfileTaskFinished"

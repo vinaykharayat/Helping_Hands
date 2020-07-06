@@ -17,7 +17,8 @@
         tools:ignore="AllowBackup">
         <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".ForgotPassword" />
-        <activity android:name=".JobsInfo" />
+        <activity android:name=".JobsInfo"
+            android:label="Description"  />
         <activity android:name=".AddJobs" />
         <activity android:name=".AddTask" />
         <activity android:name=".Admin_chat_activity" />

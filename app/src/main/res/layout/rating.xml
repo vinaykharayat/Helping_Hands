@@ -14,8 +14,9 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
                 android:fontFamily="@font/bigshot_one"
                 android:text="Rate Intern's Work"
                 android:textSize="24sp" />
@@ -31,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="@dimen/fab_margin"
-                android:ems="10"
+                android:ems="12"
                 android:gravity="start|top"
-                android:hint="Provide Feedback(Optional)"
+                android:hint="Provide Feedback (Optional)"
                 android:inputType="textMultiLine" />
 
             <Button
