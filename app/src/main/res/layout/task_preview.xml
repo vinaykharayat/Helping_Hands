@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="4dp"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="3dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
@@ -62,15 +63,24 @@
             </LinearLayout>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:text="Description:"
+                android:textColor="#311B92"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/taskDescription"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="@dimen/fab_margin"
                 android:text="description"
                 android:textSize="16sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayoutTaskBar"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

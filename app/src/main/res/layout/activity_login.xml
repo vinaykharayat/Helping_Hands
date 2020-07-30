@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/analytics">
-
+    android:layout_height="match_parent"  >
 
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/blurView"

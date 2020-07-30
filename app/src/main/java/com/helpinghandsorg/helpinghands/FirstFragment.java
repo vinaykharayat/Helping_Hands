@@ -11,11 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.helpinghandsorg.helpinghands.adaptor.MyAdaptor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FirstFragment extends Fragment implements MyAdaptor.OnTaskClickListner {
     private RecyclerView recyclerView;
@@ -70,6 +66,8 @@ public class FirstFragment extends Fragment implements MyAdaptor.OnTaskClickList
             @Override
             public void CallBack(final TaskModel taskModel) {
                 list.add(taskModel);
+                //Reversing list to show latest task at first
+                Collections.reverse(list);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 adaptor = new MyAdaptor(getContext(), list, onTaskClickListner);
                 //Refreshes the adaptor

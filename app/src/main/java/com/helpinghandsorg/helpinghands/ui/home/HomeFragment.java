@@ -30,15 +30,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.helpinghandsorg.helpinghands.JobDetails;
 import com.helpinghandsorg.helpinghands.JobsInfo;
 import com.helpinghandsorg.helpinghands.LoginActivity;
+import com.helpinghandsorg.helpinghands.R;
 import com.helpinghandsorg.helpinghands.TaskDetails;
-import com.helpinghandsorg.helpinghands.Volunteer;
-import com.helpinghandsorg.helpinghands.adaptor.JobsAdaptor;
+import com.helpinghandsorg.helpinghands.TaskModel;
 import com.helpinghandsorg.helpinghands.adaptor.JobsAdaptorUser;
 import com.helpinghandsorg.helpinghands.adaptor.MyAdaptorUser;
-import com.helpinghandsorg.helpinghands.R;
-import com.helpinghandsorg.helpinghands.TaskModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickListner, JobsAdaptorUser.OnTaskClickListner {
 
@@ -139,6 +138,8 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
                     textview.setText("No Jobs Available");
                     textview.setVisibility(View.VISIBLE);
                 }
+                //Reversing list to show latest jobs at first
+                Collections.reverse(list1);
                 jobsAdaptor = new JobsAdaptorUser(getContext(), list1, onTaskClickListner1);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(jobsAdaptor);
@@ -180,6 +181,8 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
                     textview.setText("No tasks available");
                     textview.setVisibility(View.VISIBLE);
                 }
+                //Reversing list to show latest tasks at first
+                Collections.reverse(list);
                 adaptor = new MyAdaptorUser(getContext(), list, onTaskClickListner);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(adaptor);

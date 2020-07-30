@@ -87,7 +87,6 @@ public class SubmissionList extends Fragment implements UsersListAdaptor.OnUserL
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 volunteer = dataSnapshot.getValue(Volunteer.class);
-
                 firebaseCallBackUser.Callback(volunteer);
 
             }
