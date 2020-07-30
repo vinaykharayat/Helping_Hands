@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="4dp"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="3dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
@@ -65,9 +66,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/fab_margin"
-                android:textStyle="bold"
+                android:text="Description:"
+                android:textColor="#311B92"
                 android:textSize="18dp"
-                android:text="Description:" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/taskDescription"

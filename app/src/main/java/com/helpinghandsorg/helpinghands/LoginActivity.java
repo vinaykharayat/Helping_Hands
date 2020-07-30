@@ -2,8 +2,8 @@ package com.helpinghandsorg.helpinghands;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,12 +11,11 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private BlurView blurView;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,8 +99,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void blurBackground() {
-        float radius = 22f;
+        float radius = 20f;
 
         View decorView = getWindow().getDecorView();
         //ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
@@ -188,6 +189,16 @@ public class LoginActivity extends AppCompatActivity {
                             }).show();
                 }
             });
+        }else{
+            new AlertDialog.Builder(LoginActivity.this).setMessage("Incorrect email or password")
+                    .setTitle("Error")
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
         }
     }
 

@@ -203,7 +203,6 @@ public class FragmentTaskDetail extends Fragment {
                 taskModel.setTaskDescription((String) dataSnapshot.child("taskDescription").getValue());
                 taskModel.setDueDate((String) dataSnapshot.child("dueDate").getValue());
                 taskConfirmationSender.setTaskDueDate((String) dataSnapshot.child("dueDate").getValue());
-                Log.d("taskerror", taskModel.getTaskTitle());
                 fireBaseCallBack.CallBack(taskModel);
             }
 

@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.helpinghandsorg.helpinghands.adaptor.JobsAdaptor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class JobsFragment extends Fragment implements JobsAdaptor.OnTaskClickListner{
 
@@ -65,6 +66,8 @@ public class JobsFragment extends Fragment implements JobsAdaptor.OnTaskClickLis
             @Override
             public void Callback(final JobDetails jobDetails) {
                 list.add(jobDetails);
+                //Reversing list to show latest jobs at first
+                Collections.reverse(list);
                 if(!list.isEmpty()) {
                     jobsAdaptor = new JobsAdaptor(getContext(), list, onTaskClickListner);
                     recyclerView.setAdapter(jobsAdaptor);
