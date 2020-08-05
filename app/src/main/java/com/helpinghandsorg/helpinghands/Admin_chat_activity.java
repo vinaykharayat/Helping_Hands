@@ -41,7 +41,6 @@ public class Admin_chat_activity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         uid = extras.getString("uid");
 
-        //Log.d("Crashfix", "Inside onCreate" + uid);
         readData(new FirebaseCallBack() {
             @Override
             public void Callback(String userName, String imageUrl) {
@@ -53,7 +52,9 @@ public class Admin_chat_activity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Admin_chat_activity.this, Main2Activity.class));
+                Intent intent = new Intent(Admin_chat_activity.this, Main2Activity.class);
+                intent.putExtra("viewpager_position", 2);
+                startActivity(intent);
                 finish();
             }
         });
@@ -65,9 +66,9 @@ public class Admin_chat_activity extends AppCompatActivity {
                 FragmentManager fm= getSupportFragmentManager();
                 Fragment profileFrag = new ViewProfile();
                 profileFrag.setArguments(bundle);
-
                 fm.beginTransaction().add(android.R.id.content,
                         profileFrag).commit();
+
             }
         });
     }

@@ -106,9 +106,10 @@ public class AllMembersList extends Fragment implements UsersListAdaptor.OnUserL
                 .navigate(R.id.action_allMembersList_to_editUser, bundle);
     }
 
-    private void openUserProfile(int position) {
+    public void openUserProfile(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
+        bundle.putString("fromGraph", "true");
         NavHostFragment.findNavController(AllMembersList.this)
                 .navigate(R.id.action_allMembersList_to_viewProfile, bundle);
     }

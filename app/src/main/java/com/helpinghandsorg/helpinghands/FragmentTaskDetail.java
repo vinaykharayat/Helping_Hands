@@ -50,7 +50,7 @@ public class FragmentTaskDetail extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         taskID = getActivity().getIntent().getExtras().getString("taskID");
-        Log.d("taskerror", taskID);
+        Log.d("taskerror_FTaskDetails", taskID);
         builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Please Wait").setView(R.layout.my_progress_view).setCancelable(false);
         dialog1 = builder.create();
@@ -65,6 +65,7 @@ public class FragmentTaskDetail extends Fragment {
                 if (volunteer.isAdmin().equals("true")) {
                     buttonSubmissionList.setVisibility(View.VISIBLE);
                 } else {
+                    Log.d("404", "I am here");
                     buttonAddSubmission.setVisibility(View.VISIBLE);
                 }
             }

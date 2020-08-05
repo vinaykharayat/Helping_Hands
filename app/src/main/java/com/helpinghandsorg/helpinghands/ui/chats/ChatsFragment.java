@@ -90,8 +90,7 @@ public class ChatsFragment extends Fragment {
     }
 
     private void readMessage(final String uid){
-        mChat = new ArrayList<>();
-
+        mChat = new ArrayList<ChatModel>();
         DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Chats");
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,7 +101,6 @@ public class ChatsFragment extends Fragment {
                     if(chat.getReceiver().equals("admin") && chat.getSender().equals(uid)|| chat.getSender().equals("admin") && chat.getReceiver().equals(uid)){
                         mChat.add(chat);
                     }
-                    //Log.d("Chaterror", String.valueOf(messageAdaptor.getItemCount()));
                     messageAdaptor = new MessageAdaptor(getContext(),mChat);
                     recyclerView.setAdapter(messageAdaptor);
                 }

@@ -23,6 +23,8 @@ import com.helpinghandsorg.helpinghands.repositories.ChatModel;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 public class MessageList extends Fragment implements UsersListAdaptor.OnUserListClickListner{
@@ -67,7 +69,9 @@ public class MessageList extends Fragment implements UsersListAdaptor.OnUserList
                     if(chatModel.getSender().equals("admin") && !chatModel.getReceiver().equals("admin")){
                         //Stores user id inside arraylist if I am receiver
                         chatArrayList.add(chatModel.getReceiver());
+                        chatArrayList = removeDublicateValues(chatArrayList);
                     }
+                    //if message reciever is user
                     if(!chatModel.getSender().equals("admin") && chatModel.getReceiver().equals("admin")){
                         chatArrayList.add(chatModel.getSender());
                     }
@@ -85,6 +89,14 @@ public class MessageList extends Fragment implements UsersListAdaptor.OnUserList
         return inflater.inflate(R.layout.fragment_users_list, container, false);
     }
 
+    private ArrayList<String> removeDublicateValues(ArrayList<String> chatArrayList) {
+        Set<String> set = new LinkedHashSet<>();
+        set.addAll(chatArrayList);
+        chatArrayList.clear();
+        chatArrayList.addAll(set);
+        return chatArrayList;
+    }
+
     private void readChats() {
         mUsers = new ArrayList<>();
         Ref = FirebaseDatabase.getInstance().getReference("Volunteer").child("Member");
@@ -94,7 +106,7 @@ public class MessageList extends Fragment implements UsersListAdaptor.OnUserList
                 mUsers.clear();
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()) {
                     try {
-                        //fetcjhing users (members) from database
+                        //fetching users (members) from database
                         Volunteer volunteer = dataSnapshot1.getValue(Volunteer.class);
                         //iterates over All ids(chatarraylist) and put inside "String id"
                         for (String id : chatArrayList) {
@@ -116,6 +128,7 @@ public class MessageList extends Fragment implements UsersListAdaptor.OnUserList
 
                     }
                 }
+                Log.d("chaterror_msglist", chatArrayList.toString());
                 usersListAdaptor = new UsersListAdaptor(getContext(), mUsers, onUserListClickListner);
                 recyclerView.setAdapter(usersListAdaptor);
             }

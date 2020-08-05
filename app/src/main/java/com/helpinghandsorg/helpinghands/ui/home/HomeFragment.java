@@ -2,7 +2,6 @@ package com.helpinghandsorg.helpinghands.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,12 +170,12 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
                 taskModel = new TaskModel();
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                     taskModel = dataSnapshot1.getValue(TaskModel.class);
-                    taskModel.setTaskID(dataSnapshot.getKey());
+                    taskModel.setTaskID(dataSnapshot1.getKey());
                 }
                 if(designation.equals(taskModel.getDestination())) {
                     list.add(taskModel);
                 }
-                if(list.isEmpty()){
+                if(list.isEmpty()) {
                     TextView textview = getView().findViewById(R.id.textViewNoJobs);
                     textview.setText("No tasks available");
                     textview.setVisibility(View.VISIBLE);
@@ -187,6 +186,7 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(adaptor);
                 dialog.dismiss();
+
             }
 
             @Override
@@ -196,6 +196,7 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
         });
 
     }
+
 
     private void readUserDetails(final FirebaseCallBack firebaseCallBack) {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Volunteer").child("Member")
@@ -222,7 +223,6 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
     public void onTaskClick(int position) {
         Bundle bundle = new Bundle();
         if(stateIntern){
-            Log.d("Crashfix", list.get(position).toString());
             bundle.putString("taskID", list.get(position).getTaskID());
             try {
                 String taskID = list.get(position).getTaskID();
@@ -235,7 +235,6 @@ public class HomeFragment extends Fragment implements MyAdaptorUser.OnTaskClickL
             }
         }
         else{
-            Log.d("Crashfix", list1.get(position).toString());
             bundle.putString("taskID", list1.get(position).getJobId());
             try {
                 String taskID = list1.get(position).getJobId();

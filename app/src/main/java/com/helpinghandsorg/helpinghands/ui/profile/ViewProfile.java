@@ -54,10 +54,15 @@ public class ViewProfile extends Fragment {
         logout.setVisibility(View.GONE);
         final ProgressBar mProgressBar = view.findViewById(R.id.progressBar3);
         Button backButoon = view.findViewById(R.id.button_Back);
+        //backButoon.setVisibility(View.GONE);
         backButoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(ViewProfile.this).navigate(R.id.action_viewProfile_to_allMembersList);
+                try {
+                    getActivity().getSupportFragmentManager().beginTransaction().remove(ViewProfile.this).commit();
+                }catch (Exception e){
+                    NavHostFragment.findNavController(ViewProfile.this).navigate(R.id.action_viewProfile_to_allMembersList);
+                }
             }
         });
 

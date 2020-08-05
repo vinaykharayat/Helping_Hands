@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabItem;
@@ -30,7 +29,11 @@ public class Main2Activity extends AppCompatActivity {
         //Adding fragments to tabs
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         viewPager= findViewById(R.id.view_pager);
-
+        int position = 0;
+        Bundle extra = getIntent().getExtras();
+        if(extra!=null){
+            position = extra.getInt("viewpager_position");
+        }
         ViewpagerAdaptor viewpagerAdaptor = new ViewpagerAdaptor(getSupportFragmentManager());
         viewPager.setAdapter(viewpagerAdaptor);
         viewpagerAdaptor.addFragment(new FirstFragment(R.layout.content_main2), "Tasks");
@@ -47,7 +50,7 @@ public class Main2Activity extends AppCompatActivity {
 
         viewPager.setAdapter(viewpagerAdaptor);
         tabLayout.setupWithViewPager(viewPager);
-
+        viewPager.setCurrentItem(position);
     }
 
     @Override
