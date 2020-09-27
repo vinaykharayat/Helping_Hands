@@ -82,9 +82,30 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/btn_rounded"
-                android:text="Login"
+                android:text="Sign In"
                 android:textColor="#ffffff" />
+            <TextView
+                android:id="@+id/textViewForgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/background_theme_org"
+                android:text="Forgot Password?"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:gravity="center"
+                android:textColor="@color/background_theme_org"
+                android:text="OR"
+                android:textStyle="bold" />
+
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/google_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/buttonSubmitIssue"
@@ -93,19 +114,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/fab_margin"
-                android:background="@drawable/btn_rounded"
                 android:text="Register"
                 android:textColor="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/textViewForgotPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:gravity="center"
-                android:textColor="@color/background_theme_org"
-                android:text="Forgot Password?"
-                android:textStyle="bold" />
         </LinearLayout>
     </eightbitlab.com.blurview.BlurView>
 </RelativeLayout>

@@ -68,6 +68,11 @@ public class MessageAdaptorUser extends RecyclerView.Adapter<MessageAdaptorUser.
             }}catch (NullPointerException e){
             Picasso.get().load(R.drawable.avatar_male).fit().into(holder.imageViewProfilePic);
         }
+        try{
+            holder.time.setText(chats.getTime());
+        }catch (Exception ignored){
+
+        }
 
     }
 
@@ -80,11 +85,13 @@ public class MessageAdaptorUser extends RecyclerView.Adapter<MessageAdaptorUser.
 
         private TextView showMessage;
         private ImageView imageViewProfilePic;
+        private TextView time;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             showMessage = itemView.findViewById(R.id.show_message);
             imageViewProfilePic = itemView.findViewById(R.id.profile_image);
+            time = itemView.findViewById(R.id.time);
         }
     }
 

@@ -23,7 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.helpinghandsorg.helpinghands.adaptor.MessageAdaptorUser;
 import com.helpinghandsorg.helpinghands.repositories.ChatModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -73,7 +75,15 @@ public class chats_user_fragment extends Fragment {
         hashMap.put("sender", sender);
         hashMap.put("message", text);
         hashMap.put("receiver", receiver);
+        hashMap.put("time", getCurrentDateandTime());
         dbRef.child("Chats").push().setValue(hashMap);
+    }
+
+    public static String getCurrentDateandTime(){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a dd/MM/yyyy" );
+        String str = sdf.format(cal.getTime());
+        return str;
     }
 
     private void readMessage(final String myid){

@@ -1,6 +1,7 @@
 package com.helpinghandsorg.helpinghands.ui.chats;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.helpinghandsorg.helpinghands.R;
 import com.helpinghandsorg.helpinghands.adaptor.MessageAdaptor;
+import com.helpinghandsorg.helpinghands.chats_user_fragment;
 import com.helpinghandsorg.helpinghands.repositories.ChatModel;
 
 import java.util.ArrayList;
@@ -86,11 +88,13 @@ public class ChatsFragment extends Fragment {
         hashMap.put("sender", sender);
         hashMap.put("message", text);
         hashMap.put("receiver", receiver);
+        hashMap.put("time", chats_user_fragment.getCurrentDateandTime());
+        Log.d("mTime", chats_user_fragment.getCurrentDateandTime());
         dbRef.child("Chats").push().setValue(hashMap);
     }
 
     private void readMessage(final String uid){
-        mChat = new ArrayList<ChatModel>();
+        mChat = new ArrayList<>();
         DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Chats");
         dbref.addValueEventListener(new ValueEventListener() {
             @Override

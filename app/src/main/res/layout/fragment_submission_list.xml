@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SubmissionList"
-    android:background="@android:drawable/screen_background_light_transparent">
+    android:background="#D5CFF8">
 
     <RelativeLayout
         android:layout_width="match_parent"

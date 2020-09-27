@@ -93,7 +93,7 @@ public class AppTeam extends Fragment implements UsersListAdaptor.OnUserListClic
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(AppTeam.this)
-                .navigate(R.id.action_allMembersList_to_viewProfile, bundle);
+                .navigate(R.id.action_appTeam_to_viewProfile, bundle);
     }
 
     private void sendMessage(int position) {

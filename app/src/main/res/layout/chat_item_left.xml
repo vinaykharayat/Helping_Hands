@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp" android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    tools:ignore="HardcodedText">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="40dp"
@@ -18,7 +21,23 @@
         android:id="@+id/show_message"
         android:textSize="18sp"
         android:textColor="#ffffff"
-        android:text="Hello noobs, what are you doing. This is the new chat interface for college project."/>
+        android:text="Hello noobs, what are you doing. This is the new chat interface for college project."
+        android:layout_toEndOf="@id/profile_image"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/show_message"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/profile_image"
+        android:layout_toRightOf="@+id/profile_image"
+        android:padding="8dp"
+        android:textColor="#000"
+        android:textSize="12sp"
+        android:text="12:00 AM, 20/10/2020" />
 
 
 </RelativeLayout>

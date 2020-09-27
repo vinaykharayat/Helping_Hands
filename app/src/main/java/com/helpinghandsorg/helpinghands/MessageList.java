@@ -48,7 +48,9 @@ public class MessageList extends Fragment implements UsersListAdaptor.OnUserList
         super.onViewCreated(view, savedInstanceState);
         onUserListClickListner = this;
         recyclerView = view.findViewById(R.id.recycler_view_user_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     @Override
@@ -149,8 +151,8 @@ public class MessageList extends Fragment implements UsersListAdaptor.OnUserList
     @Override
     public void onMessageListClick(String uid) {
         Intent intent = new Intent(getContext(), Admin_chat_activity.class);
-        Log.d("chatlisterror", uid+ ","+ chatArrayList.toString());
         intent.putExtra("uid", uid);
+        intent.putExtra("from", "messageList");
         startActivity(intent);
         getActivity().finish();
 

@@ -87,14 +87,14 @@ public class SeoTeam extends Fragment implements UsersListAdaptor.OnUserListClic
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(SeoTeam.this)
-                .navigate(R.id.action_allMembersList_to_editUser, bundle);
+                .navigate(R.id.action_seoTeam_to_editUser, bundle);
     }
 
     private void openUserProfile(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(SeoTeam.this)
-                .navigate(R.id.action_allMembersList_to_viewProfile, bundle);
+                .navigate(R.id.action_seoTeam_to_viewProfile, bundle);
     }
 
     private void sendMessage(int position) {

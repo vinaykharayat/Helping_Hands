@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
 
-    <androidx.cardview.widget.CardView
+    <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="4dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true">
+        android:layout_height="wrap_content"
+        app:neomorph_background_color="#D5CFF8"
+        app:neomorph_corner_radius="30dp"
+        app:neomorph_elevation="4dp"
+        app:neomorph_highlight_color="#fff"
+        app:neomorph_layer_type="software"
+        app:neomorph_shadow_color="#000"
+        app:neomorph_shadow_type="outer"
+        app:neomorph_view_type="rectangular">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +33,7 @@
 
                 <TextView
                     android:id="@+id/taskTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".95"
                     android:fontFamily="@font/bigshot_one"
@@ -48,9 +52,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fab_margin"
+                    android:layout_marginEnd="@dimen/fab_margin"
                     android:layout_marginRight="@dimen/fab_margin"
                     android:fontFamily="@font/bigshot_one"
                     android:text="Due date:"
+                    android:textColor="#000"
                     android:textSize="16sp" />
 
                 <TextView
@@ -59,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/fab_margin"
                     android:text="due date"
+                    android:textColor="#000"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -68,7 +75,7 @@
                 android:layout_marginTop="@dimen/fab_margin"
                 android:text="Description:"
                 android:textColor="#311B92"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -76,13 +83,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="description"
+                android:textColor="#000"
+
                 android:textSize="16sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayoutTaskBar"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/imageViewEditButton"
@@ -90,6 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
+                    android:contentDescription="Edit button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/taskDeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
@@ -102,13 +112,15 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:background="@android:drawable/ic_menu_delete"
+                    android:contentDescription="Delete Button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+
+    </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
 
 
 </LinearLayout>

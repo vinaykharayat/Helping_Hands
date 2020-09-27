@@ -27,7 +27,7 @@
 
         <GridLayout
             android:id="@+id/gridLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alignmentMode="alignMargins"
             android:columnCount="2"
@@ -39,7 +39,6 @@
             app:layout_constraintTop_toBottomOf="@id/button_show_all_members">
 
             <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
-                android:id="@+id/cardView_designingTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:neomorph_background_color="#D5CFF8"
@@ -50,11 +49,12 @@
                 app:neomorph_shadow_color="#000"
                 app:neomorph_shadow_type="outer"
                 android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                app:neomorph_view_type="rectangular"
+                android:id="@+id/cardView_designingTeam">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -62,8 +62,9 @@
                     <ImageView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
+                        android:layout_gravity="center"
                         app:srcCompat="@drawable/ic_art"
-                        android:contentDescription="Desigining team" />
+                        android:contentDescription="Designing Team" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -71,6 +72,8 @@
                         android:layout_marginTop="12dp"
                         android:fontFamily="@font/bigshot_one"
                         android:textColor="#000"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="Designing Team"
                         android:textSize="18sp" />
 
@@ -78,7 +81,6 @@
             </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
 
             <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
-                android:id="@+id/cardView_webTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:neomorph_background_color="#D5CFF8"
@@ -89,11 +91,12 @@
                 app:neomorph_shadow_color="#000"
                 app:neomorph_shadow_type="outer"
                 android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                app:neomorph_view_type="rectangular"
+                android:id="@+id/cardView_webTeam">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -117,7 +120,6 @@
             </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
 
             <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
-                android:id="@+id/cardView_seoTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:neomorph_background_color="#D5CFF8"
@@ -128,11 +130,12 @@
                 app:neomorph_shadow_color="#000"
                 app:neomorph_shadow_type="outer"
                 android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                app:neomorph_view_type="rectangular"
+                android:id="@+id/cardView_seoTeam">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -156,7 +159,6 @@
             </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
 
             <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
-                android:id="@+id/cardView_appTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:neomorph_background_color="#D5CFF8"
@@ -167,11 +169,12 @@
                 app:neomorph_shadow_color="#000"
                 app:neomorph_shadow_type="outer"
                 android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                app:neomorph_view_type="rectangular"
+                android:id="@+id/cardView_appTeam">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -195,7 +198,6 @@
             </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
 
             <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
-                android:id="@+id/cardView_surveyTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:neomorph_background_color="#D5CFF8"
@@ -206,11 +208,12 @@
                 app:neomorph_shadow_color="#000"
                 app:neomorph_shadow_type="outer"
                 android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                app:neomorph_view_type="rectangular"
+                android:id="@+id/cardView_surveyTeam">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -248,8 +251,8 @@
                 app:neomorph_view_type="rectangular">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="16dp">

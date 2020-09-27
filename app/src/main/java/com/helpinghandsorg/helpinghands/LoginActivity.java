@@ -15,18 +15,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,14 +49,14 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 public class LoginActivity extends AppCompatActivity {
 
     String adminStatus;
-    private TextView forgotPassword;
     private TextInputLayout editEmail, editPassword;
     private FirebaseAuth mAuth;
     private DatabaseReference dbRef;
-    private String uid;
-    Volunteer newVolunteer = new Volunteer();
+    private Volunteer newVolunteer = new Volunteer();
     private AlertDialog dialog;
     private BlurView blurView;
+    private GoogleSignInClient mGoogleSignInClient;
+    private int RC_SIGN_IN = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -57,10 +67,11 @@ public class LoginActivity extends AppCompatActivity {
         dbRef = FirebaseDatabase.getInstance().getReference();
         Button loginButton = findViewById(R.id.buttonLogin);
         Button registerButton = findViewById(R.id.buttonSubmitIssue);
-        forgotPassword = findViewById(R.id.textViewForgotPassword);
+        TextView forgotPassword = findViewById(R.id.textViewForgotPassword);
         editEmail = findViewById(R.id.username);
         editPassword = findViewById(R.id.password);
         blurView = findViewById(R.id.blurView);
+        SignInButton signInButtonGoogle = findViewById(R.id.google_sign_in);
         blurBackground();
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +102,85 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder().requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        signInButtonGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInUsingGoogle();
+            }
+        });
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createUser();
+            }
+        });
+    }
+
+    private void signInUsingGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_SIGN_IN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try{
+                GoogleSignInAccount acc = task.getResult(ApiException.class);
+                Toast.makeText(LoginActivity.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
+                FirebaseGoogleAUth(acc);
+            }catch (ApiException e){
+                Toast.makeText(LoginActivity.this, "ApiEception:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void FirebaseGoogleAUth(GoogleSignInAccount acc) {
+        AuthCredential authCredential = GoogleAuthProvider.getCredential(acc.getIdToken(), null);
+        mAuth.signInWithCredential(authCredential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                readData(new FirebaseCallBack() {
+                    @Override
+                    public void Callback(Volunteer data) {
+                        try {
+                            if (data.isAdmin().equals("true")) {
+                                Toast.makeText(LoginActivity.this, "Welcome! " + data.getFullName(), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                                startActivity(intent);
+                                finishAffinity();
+                            } else {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finishAffinity();
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(LoginActivity.this, "Firebase Google Auth:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                new MaterialAlertDialogBuilder(LoginActivity.this)
+                        .setTitle("Oops")
+                        .setMessage(e.getMessage())
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
             }
         });
     }
@@ -195,8 +281,10 @@ public class LoginActivity extends AppCompatActivity {
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(DialogInterface dialog1, int which) {
+                            dialog1.dismiss();
                             dialog.dismiss();
+
                         }
                     }).show();
         }
@@ -241,7 +329,7 @@ public class LoginActivity extends AppCompatActivity {
     private void readData(final FirebaseCallBack firebaseCallBack) {
         DatabaseReference volunteerRef;
         volunteerRef = dbRef.child("Volunteer").child("Member");
-        uid = mAuth.getCurrentUser().getUid();
+        String uid = mAuth.getCurrentUser().getUid();
         volunteerRef.child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

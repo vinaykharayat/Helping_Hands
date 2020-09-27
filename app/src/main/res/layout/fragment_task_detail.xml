@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".FragmentTaskDetail"
     android:id="@+id/fragment_task_detail_container"
-    android:background="@android:drawable/screen_background_light_transparent">
+    android:background="#D5CFF8">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="#000"
                 android:text="TextView"
                 android:textSize="30sp" />
 
@@ -35,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
+                android:textColor="#000"
                 android:text="TextView"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -45,7 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        android:background="@drawable/btn_rounded"
         android:text="View Submission"
         android:textColor="#FFFFFF"
         android:visibility="gone"
@@ -56,7 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
-            android:background="@drawable/btn_rounded"
             android:text="Add Submission"
             android:textColor="#FFFFFF"
             android:visibility="gone"

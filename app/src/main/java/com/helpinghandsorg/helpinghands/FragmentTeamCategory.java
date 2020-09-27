@@ -8,9 +8,10 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.chinodev.androidneomorphframelayout.NeomorphFrameLayout;
 
 
 /**
@@ -34,12 +35,12 @@ public class FragmentTeamCategory extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button showAllMembers = getView().findViewById(R.id.button_show_all_members);
-        CardView Team1 = getView().findViewById(R.id.cardView_designingTeam);
-        CardView Team2 = getView().findViewById(R.id.cardView_webTeam);
-        CardView Team3 = getView().findViewById(R.id.cardView_seoTeam);
-        CardView Team4 = getView().findViewById(R.id.cardView_appTeam);
-        CardView Team5 = getView().findViewById(R.id.cardView_surveyTeam);
-        CardView Team6 = getView().findViewById(R.id.cardView_projectTeam);
+        NeomorphFrameLayout Team1 = getView().findViewById(R.id.cardView_designingTeam);
+        NeomorphFrameLayout Team2 = getView().findViewById(R.id.cardView_webTeam);
+        NeomorphFrameLayout Team3 = getView().findViewById(R.id.cardView_seoTeam);
+        NeomorphFrameLayout Team4 = getView().findViewById(R.id.cardView_appTeam);
+        NeomorphFrameLayout Team5 = getView().findViewById(R.id.cardView_surveyTeam);
+        NeomorphFrameLayout Team6 = getView().findViewById(R.id.cardView_projectTeam);
 
         showAllMembers.setOnClickListener(new View.OnClickListener() {
             @Override

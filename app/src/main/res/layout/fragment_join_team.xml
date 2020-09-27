@@ -165,7 +165,6 @@
                 android:id="@+id/buttonSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_rounded"
                 android:fontFamily="@font/bigshot_one"
                 android:text="Submit Request"
                 android:textColor="#fff" />
