@@ -2,7 +2,6 @@ package com.helpinghandsorg.helpinghands;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +46,8 @@ public class SubmissionList extends Fragment implements UsersListAdaptor.OnUserL
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         onUserListClickListner = this;
+        volunteerArrayList = new ArrayList<>();
+        volunteerArrayList.clear();
         taskID = getActivity().getIntent().getExtras().getString("taskID");
         recyclerView = view.findViewById(R.id.recycler_view_user_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -61,7 +62,6 @@ public class SubmissionList extends Fragment implements UsersListAdaptor.OnUserL
                     public void Callback(TaskConfirmationSender taskConfirmationSender) {
                         // Returns data from taskConfirmAwating/taskTitle
                         userId = taskConfirmationSender.getId();
-                        Log.d("Tasksproblem",userId);
                         getUser(new FirebaseCallBackUser() {
                             @Override
                             public void Callback(Volunteer volunteer) {
@@ -169,7 +169,13 @@ public class SubmissionList extends Fragment implements UsersListAdaptor.OnUserL
     private void confirmTaskFinshed(int position) {
         String uid =volunteerArrayList.get(position).getId();
         reference = FirebaseDatabase.getInstance().getReference("Volunteer").child("Member");
-        reference.child(uid).child("taskFinished").setValue(+1);
+        reference.child(uid).child("taskFinished").setValue(volunteerArrayList.get(position).getTaskFinished()+1);
+        try{
+            reference = FirebaseDatabase.getInstance().getReference("Volunteer").child(volunteerArrayList.get(position).getDesignation());
+            reference.child(uid).child("taskFinished").setValue(volunteerArrayList.get(position).getTaskFinished()+1);
+        }catch (Exception ignored){
+
+        }
 
     }
 

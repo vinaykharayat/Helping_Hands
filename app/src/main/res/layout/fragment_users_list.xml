@@ -3,12 +3,11 @@
     android:id="@+id/userListFrameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_theme_org">
+    android:background="#fff">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:drawable/screen_background_light_transparent">
+        android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"

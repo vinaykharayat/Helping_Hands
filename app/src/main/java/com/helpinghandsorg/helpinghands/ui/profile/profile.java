@@ -1,7 +1,6 @@
 package com.helpinghandsorg.helpinghands.ui.profile;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -45,7 +44,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class profile extends Fragment {
 
-    private ProfileViewModel mViewModel = new ProfileViewModel();
+    //private ProfileViewModel mViewModel = new ProfileViewModel();
     private Volunteer volunteer = new Volunteer();
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri mImageUri;
@@ -54,6 +53,7 @@ public class profile extends Fragment {
     private DatabaseReference mDatabaseRef;
     private StorageReference mStorageRef;
     private Task urlTask;
+    private  AlertDialog dialog;
 
     public static profile newInstance() {
         return new profile();
@@ -69,7 +69,7 @@ public class profile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button logoutButton = view.findViewById(R.id.buttonProfileLogout);
+        ImageButton logoutButton = view.findViewById(R.id.buttonProfileLogout);
         mProfilePicture = view.findViewById(R.id.imageViewAvatar);
         final TextView mTextViewEmail = view.findViewById(R.id.textViewProfileEmail);
         final TextView mTextViewName = view.findViewById(R.id.textViewProfileFullName);
@@ -80,10 +80,26 @@ public class profile extends Fragment {
         final TextView mTextViewJoiningDate = view.findViewById(R.id.textViewProfileJoiningDate);
         final ProgressBar mProgressBar = view.findViewById(R.id.progressBar3);
         final String[] chooseImageOptionList = getActivity().getResources().getStringArray(R.array.profile_picture_options);
+        final ImageButton userMedal = view.findViewById(R.id.user_medal);
 
         //sets path of database to Volunteer/UID
         mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Volunteer").child("Member")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        userMedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Medal Information").setView(R.layout.my_medal_info)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                dialog = builder.show();
+            }
+        });
 
 
         mProfilePicture.setOnClickListener(new View.OnClickListener() {
@@ -125,12 +141,17 @@ public class profile extends Fragment {
                 }else {
                     mProfilePicture.setImageResource(R.drawable.avatar_male);
                 }
+                float rating = data.getRating();
+                if(rating<=5 && rating>=4){
+                    userMedal.setImageResource(R.drawable.gold_medal);
+                }else if(rating<4 && rating>=2){
+                    userMedal.setImageResource(R.drawable.silver_medal);
+                }else if(rating<2 && rating>=0){
+                    userMedal.setImageResource(R.drawable.bronze_medal);
+                }
                 mProgressBar.setVisibility(View.GONE);
             }
         });
-        //TODO: Set this list to appropriate views
-        //volunteer = mViewModel.getUserProfile().getValue();
-
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +179,7 @@ public class profile extends Fragment {
             }
         });
 
-        Button backButton = view.findViewById(R.id.button_Back);
+        ImageButton backButton = view.findViewById(R.id.button_Back);
         backButton.setVisibility(View.GONE);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

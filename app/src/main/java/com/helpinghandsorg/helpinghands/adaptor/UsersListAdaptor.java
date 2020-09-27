@@ -92,8 +92,10 @@ public class UsersListAdaptor extends RecyclerView.Adapter<UsersListAdaptor.myVi
     }
 
     public interface OnUserListClickListner{
-        void onUserListClick(int position);
+        //void onUserListClick(int position);
         void onMessageListClick(String uid);
+
+        void onUserListClick(int adapterPosition);
     }
 
 }

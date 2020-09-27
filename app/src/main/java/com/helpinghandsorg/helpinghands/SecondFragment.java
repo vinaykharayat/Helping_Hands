@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +51,8 @@ public class SecondFragment extends Fragment {
     private DatePickerDialog.OnDateSetListener mDateSetListner;
     private String designation;
     private AlertDialog dialog;
+
+    Volunteer volunteer;
 
 
     @Override
@@ -187,7 +188,6 @@ public class SecondFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TaskModel taskModel = dataSnapshot.getValue(TaskModel.class);
-                Log.d("edittask", dataSnapshot.getValue().toString());
                 firebaseCallBack.Callback(taskModel);
             }
 
@@ -232,6 +232,38 @@ public class SecondFragment extends Fragment {
                 getActivity().finishAffinity();
             }
         });
+        increaseTotalTaskAllotedToMembers(designation, new FirebaseCallBack2() {
+            @Override
+            public void Callback(Volunteer volunteer) {
+                DatabaseReference teamRef = FirebaseDatabase.getInstance().getReference("Volunteer").child(designation);
+                teamRef.child(volunteer.getId()).child("taskAlloted").setValue(volunteer.getTaskAlloted()+1);
+            }
+        });
 
+    }
+
+    private interface FirebaseCallBack2{
+        void Callback(Volunteer volunteer);
+    }
+
+    private void increaseTotalTaskAllotedToMembers(String designation, final FirebaseCallBack2 firebaseCallBack2) {
+        DatabaseReference teamRef = FirebaseDatabase.getInstance().getReference("Volunteer").child(designation);
+        volunteer = new Volunteer();
+        teamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    volunteer.setId(dataSnapshot.child("id").getValue().toString());
+                    long taskAlloted = Long.parseLong(dataSnapshot.child("taskAlloted").getValue().toString());
+                    volunteer.setTaskAlloted(taskAlloted);
+                    firebaseCallBack2.Callback(volunteer);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

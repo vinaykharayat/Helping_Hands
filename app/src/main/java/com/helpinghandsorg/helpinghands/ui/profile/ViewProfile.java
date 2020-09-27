@@ -1,16 +1,18 @@
 package com.helpinghandsorg.helpinghands.ui.profile;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -31,6 +33,7 @@ public class ViewProfile extends Fragment {
     private Volunteer volunteer = new Volunteer();
     private String uid;
     private CircleImageView mProfilePicture;
+    private  AlertDialog dialog;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -50,10 +53,11 @@ public class ViewProfile extends Fragment {
         final TextView mTextViewDesignation = view.findViewById(R.id.textViewDesignation);
         final TextView mTextViewJoiningDate = view.findViewById(R.id.textViewProfileJoiningDate);
         mProfilePicture = view.findViewById(R.id.imageViewAvatar);
-        final Button logout = view.findViewById(R.id.buttonProfileLogout);
+        final ImageButton logout = view.findViewById(R.id.buttonProfileLogout);
         logout.setVisibility(View.GONE);
         final ProgressBar mProgressBar = view.findViewById(R.id.progressBar3);
-        Button backButoon = view.findViewById(R.id.button_Back);
+        final ImageButton userMedal = view.findViewById(R.id.user_medal);
+        ImageButton backButoon = view.findViewById(R.id.button_Back);
         //backButoon.setVisibility(View.GONE);
         backButoon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +67,20 @@ public class ViewProfile extends Fragment {
                 }catch (Exception e){
                     NavHostFragment.findNavController(ViewProfile.this).navigate(R.id.action_viewProfile_to_allMembersList);
                 }
+            }
+        });
+        userMedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Medal Information").setView(R.layout.my_medal_info)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog = builder.show();
             }
         });
 
@@ -87,7 +105,14 @@ public class ViewProfile extends Fragment {
                     Picasso.get().load(R.drawable.avatar_male)
                         .fit()
                         .into(mProfilePicture);
-
+                }
+                float rating = data.getRating();
+                if(rating<=5 && rating>=4){
+                    userMedal.setImageResource(R.drawable.gold_medal);
+                }else if(rating<4 && rating>=2){
+                    userMedal.setImageResource(R.drawable.silver_medal);
+                }else if(rating<2 && rating>=0){
+                    userMedal.setImageResource(R.drawable.bronze_medal);
                 }
                 mProgressBar.setVisibility(View.GONE);
             }

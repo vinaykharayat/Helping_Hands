@@ -150,7 +150,6 @@ public class MessageList extends Fragment implements UsersListAdaptor.OnUserList
     public void onMessageListClick(String uid) {
         Intent intent = new Intent(getContext(), Admin_chat_activity.class);
         Log.d("chatlisterror", uid+ ","+ chatArrayList.toString());
-        //intent.putExtra("uid", chatArrayList.get(position));
         intent.putExtra("uid", uid);
         startActivity(intent);
         getActivity().finish();

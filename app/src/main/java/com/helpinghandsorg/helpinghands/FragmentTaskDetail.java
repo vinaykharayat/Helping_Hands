@@ -2,7 +2,6 @@ package com.helpinghandsorg.helpinghands;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class FragmentTaskDetail extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         taskID = getActivity().getIntent().getExtras().getString("taskID");
-        Log.d("taskerror_FTaskDetails", taskID);
         builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Please Wait").setView(R.layout.my_progress_view).setCancelable(false);
         dialog1 = builder.create();
@@ -65,7 +63,6 @@ public class FragmentTaskDetail extends Fragment {
                 if (volunteer.isAdmin().equals("true")) {
                     buttonSubmissionList.setVisibility(View.VISIBLE);
                 } else {
-                    Log.d("404", "I am here");
                     buttonAddSubmission.setVisibility(View.VISIBLE);
                 }
             }
@@ -93,7 +90,6 @@ public class FragmentTaskDetail extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String buttonStatus = (String) dataSnapshot.child("buttonStatus").getValue();
                         if (buttonStatus != null) {
-                            Log.d("taskerror", buttonStatus);
                             if (buttonStatus.equals("true")) {
                                 new AlertDialog.Builder(getContext())
                                         .setTitle("Submission Already exists")
@@ -236,7 +232,6 @@ public class FragmentTaskDetail extends Fragment {
                 String userEmail = dataSnapshot.child("email").getValue().toString();
                 String userId = dataSnapshot.getKey();
 
-                //TODO: Fetch UID of user and set it to taskConfirmation OBject
                 taskConfirmationSender.setUserEmail(userEmail);
                 taskConfirmationSender.setUserName(userName);
                 taskConfirmationSender.setId(userId);
