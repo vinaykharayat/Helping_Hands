@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:background="@drawable/btn_rounded"
             android:text="Show All Members"
             android:textColor="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"

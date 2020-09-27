@@ -89,14 +89,14 @@ public class DesigningTeam extends Fragment implements UsersListAdaptor.OnUserLi
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(DesigningTeam.this)
-                .navigate(R.id.action_allMembersList_to_editUser, bundle);
+                .navigate(R.id.action_designingTeam_to_editUser, bundle);
     }
 
     private void openUserProfile(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(DesigningTeam.this)
-                .navigate(R.id.action_allMembersList_to_viewProfile, bundle);
+                .navigate(R.id.action_designingTeam_to_viewProfile, bundle);
     }
 
     private void sendMessage(int position) {

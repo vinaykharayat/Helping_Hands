@@ -85,14 +85,14 @@ public class ProjectTeam extends Fragment implements UsersListAdaptor.OnUserList
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(ProjectTeam.this)
-                .navigate(R.id.action_allMembersList_to_editUser, bundle);
+                .navigate(R.id.action_projectTeam_to_editUser, bundle);
     }
 
     private void openUserProfile(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(ProjectTeam.this)
-                .navigate(R.id.action_allMembersList_to_viewProfile, bundle);
+                .navigate(R.id.action_projectTeam_to_viewProfile, bundle);
     }
 
     private void sendMessage(int position) {

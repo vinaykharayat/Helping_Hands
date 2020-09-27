@@ -86,14 +86,14 @@ public class WebTeam extends Fragment implements UsersListAdaptor.OnUserListClic
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(WebTeam.this)
-                .navigate(R.id.action_allMembersList_to_editUser, bundle);
+                .navigate(R.id.action_webTeam_to_editUser, bundle);
     }
 
     private void openUserProfile(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("uid", volunteerArrayList.get(position).getId());
         NavHostFragment.findNavController(WebTeam.this)
-                .navigate(R.id.action_allMembersList_to_viewProfile, bundle);
+                .navigate(R.id.action_webTeam_to_viewProfile, bundle);
     }
 
     private void sendMessage(int position) {

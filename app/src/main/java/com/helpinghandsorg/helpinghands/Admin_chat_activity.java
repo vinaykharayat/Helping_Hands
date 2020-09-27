@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,19 +28,23 @@ public class Admin_chat_activity extends AppCompatActivity {
     ImageButton backButton;
     Volunteer volunteer = new Volunteer();
     DatabaseReference Ref;
-    String uid;
+    String uid, from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_chat_activity);
-
         name = findViewById(R.id.admin_chat_name);
         backButton = findViewById(R.id.admin_chat_back_button);
         profilePic = findViewById(R.id.admin_chat_profile_pic);
         profilePicChat = this.getLayoutInflater().inflate(R.layout.chat_item_left,null).findViewById(R.id.profile_image);
         Bundle extras = getIntent().getExtras();
         uid = extras.getString("uid");
+        try{
+            from = extras.getString("from");
+        }catch (Exception ignored){
+
+        }
 
         readData(new FirebaseCallBack() {
             @Override
@@ -52,10 +57,14 @@ public class Admin_chat_activity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Admin_chat_activity.this, Main2Activity.class);
-                intent.putExtra("viewpager_position", 2);
-                startActivity(intent);
-                finish();
+                if(from!=null) {
+                    Intent intent = new Intent(Admin_chat_activity.this, Main2Activity.class);
+                    intent.putExtra("viewpager_position", 2);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(Admin_chat_activity.this,"Please press back button of device", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         name.setOnClickListener(new View.OnClickListener() {

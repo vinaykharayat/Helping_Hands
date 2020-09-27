@@ -51,27 +51,69 @@
         android:id="@+id/designingTeam"
         android:name="com.helpinghandsorg.helpinghands.teams.DesigningTeam"
         android:label="DesigningTeam"
-        />
+        >
+        <action
+            android:id="@+id/action_designingTeam_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_designingTeam_to_editUser"
+            app:destination="@id/editUser" />
+    </fragment>
     <fragment
         android:id="@+id/projectTeam"
         android:name="com.helpinghandsorg.helpinghands.teams.ProjectTeam"
-        android:label="ProjectTeam" />
+        android:label="ProjectTeam" >
+        <action
+            android:id="@+id/action_projectTeam_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_projectTeam_to_editUser"
+            app:destination="@id/editUser" />
+    </fragment>
     <fragment
         android:id="@+id/appTeam"
         android:name="com.helpinghandsorg.helpinghands.teams.AppTeam"
-        android:label="AppTeam" />
+        android:label="AppTeam" >
+        <action
+            android:id="@+id/action_appTeam_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_appTeam_to_editUser"
+            app:destination="@id/editUser" />
+    </fragment>
     <fragment
         android:id="@+id/seoTeam"
         android:name="com.helpinghandsorg.helpinghands.teams.SeoTeam"
-        android:label="SeoTeam" />
+        android:label="SeoTeam" >
+        <action
+            android:id="@+id/action_seoTeam_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_seoTeam_to_editUser"
+            app:destination="@id/editUser" />
+    </fragment>
     <fragment
         android:id="@+id/surveyTeam"
         android:name="com.helpinghandsorg.helpinghands.teams.SurveyTeam"
-        android:label="SurveyTeam" />
+        android:label="SurveyTeam" >
+        <action
+            android:id="@+id/action_surveyTeam_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_surveyTeam_to_editUser"
+            app:destination="@id/editUser" />
+    </fragment>
     <fragment
         android:id="@+id/webTeam"
         android:name="com.helpinghandsorg.helpinghands.teams.WebTeam"
-        android:label="WebTeam" />
+        android:label="WebTeam" >
+        <action
+            android:id="@+id/action_webTeam_to_viewProfile"
+            app:destination="@id/viewProfile" />
+        <action
+            android:id="@+id/action_webTeam_to_editUser"
+            app:destination="@id/editUser" />
+    </fragment>
     <fragment
         android:id="@+id/viewProfile"
         android:name="com.helpinghandsorg.helpinghands.ui.profile.ViewProfile"
@@ -79,6 +121,9 @@
         <action
             android:id="@+id/action_viewProfile_to_allMembersList"
             app:destination="@id/allMembersList" />
+        <action
+            android:id="@+id/action_viewProfile_self"
+            app:destination="@id/viewProfile" />
     </fragment>
     <fragment
         android:id="@+id/chatsFragment2"
