@@ -8,7 +8,7 @@ Login using your email password or passwordless signin using google. Register us
 ![login_screenshot](https://img.techpowerup.org/201002/OTQ2YTdmZjlmYWI2.jpg)
 
 # Admin Tasks/Jobs/Chats screen
-When admin logs in, he/she will see this screen where he/she can add new job/tasks or edit/delete existing tasks/jobs. Also he will have list of chats.
+When admin logs in, he/she will see this screen where he/she can add new job/tasks or edit/delete existing tasks/jobs. Also he will have list of chats. I have implemented neumorphic design.
 
 ![tasks_screen](https://img.techpowerup.org/201002/ZjViN2JlYmNhODg1.jpg)
 ![tasks_screen](https://img.techpowerup.org/201002/YzNjMGU2YjliOThm.jpg)
