@@ -4,6 +4,7 @@ It uses Firebase as Backend/Database. You need to add your own google-services.j
 
 # Login/SignUp
 Login using your email password or passwordless signin using google. Register using registration screen and verify email to continue.
+
 ![login_screenshot](https://img.techpowerup.org/201002/OTQ2YTdmZjlmYWI2.jpg)
 
 # Admin Tasks/Jobs/Chats screen
