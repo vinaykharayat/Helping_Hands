@@ -38,19 +38,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_show_all_members">
 
-            <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_designingTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:neomorph_background_color="#D5CFF8"
-                app:neomorph_corner_radius="30dp"
-                app:neomorph_elevation="4dp"
-                app:neomorph_highlight_color="#fff"
-                app:neomorph_layer_type="software"
-                app:neomorph_shadow_color="#000"
-                app:neomorph_shadow_type="outer"
-                android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                android:layout_margin="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,21 +67,13 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-            </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+            </androidx.cardview.widget.CardView>
 
-            <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_webTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:neomorph_background_color="#D5CFF8"
-                app:neomorph_corner_radius="30dp"
-                app:neomorph_elevation="4dp"
-                app:neomorph_highlight_color="#fff"
-                app:neomorph_layer_type="software"
-                app:neomorph_shadow_color="#000"
-                app:neomorph_shadow_type="outer"
-                android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                android:layout_margin="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,21 +98,13 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-            </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+            </androidx.cardview.widget.CardView>
 
-            <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_seoTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:neomorph_background_color="#D5CFF8"
-                app:neomorph_corner_radius="30dp"
-                app:neomorph_elevation="4dp"
-                app:neomorph_highlight_color="#fff"
-                app:neomorph_layer_type="software"
-                app:neomorph_shadow_color="#000"
-                app:neomorph_shadow_type="outer"
-                android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                android:layout_margin="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -153,21 +129,13 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-            </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+            </androidx.cardview.widget.CardView>
 
-            <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_appTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:neomorph_background_color="#D5CFF8"
-                app:neomorph_corner_radius="30dp"
-                app:neomorph_elevation="4dp"
-                app:neomorph_highlight_color="#fff"
-                app:neomorph_layer_type="software"
-                app:neomorph_shadow_color="#000"
-                app:neomorph_shadow_type="outer"
-                android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                android:layout_margin="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,21 +160,13 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-            </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+            </androidx.cardview.widget.CardView>
 
-            <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_surveyTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:neomorph_background_color="#D5CFF8"
-                app:neomorph_corner_radius="30dp"
-                app:neomorph_elevation="4dp"
-                app:neomorph_highlight_color="#fff"
-                app:neomorph_layer_type="software"
-                app:neomorph_shadow_color="#000"
-                app:neomorph_shadow_type="outer"
-                android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                android:layout_margin="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -231,21 +191,13 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-            </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+            </androidx.cardview.widget.CardView>
 
-            <com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_projectTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:neomorph_background_color="#D5CFF8"
-                app:neomorph_corner_radius="30dp"
-                app:neomorph_elevation="4dp"
-                app:neomorph_highlight_color="#fff"
-                app:neomorph_layer_type="software"
-                app:neomorph_shadow_color="#000"
-                app:neomorph_shadow_type="outer"
-                android:layout_margin="12dp"
-                app:neomorph_view_type="rectangular">
+                android:layout_margin="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -270,7 +222,7 @@
                         android:textSize="18sp" />
 
                 </LinearLayout>
-            </com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+            </androidx.cardview.widget.CardView>
 
         </GridLayout>
 

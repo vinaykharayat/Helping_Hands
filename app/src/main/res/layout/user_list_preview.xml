@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chinodev.androidneomorphframelayout.NeomorphFrameLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:neomorph_background_color="#D5CFF8"
-    app:neomorph_corner_radius="30dp"
-    app:neomorph_elevation="3dp"
-    app:neomorph_highlight_color="#fff"
-    app:neomorph_layer_type="software"
-    app:neomorph_shadow_color="#000"
-    app:neomorph_shadow_type="outer"
-    app:neomorph_view_type="rectangular"
     tools:ignore="HardcodedText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,4 +48,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.chinodev.androidneomorphframelayout.NeomorphFrameLayout>
+</androidx.cardview.widget.CardView>
